@@ -39,10 +39,12 @@
 }
 
 .footer-names {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
   color: var(--cream);
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
 }
 
 .footer-date {

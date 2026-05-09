@@ -36,9 +36,9 @@ export default function LoadingScreen({ onDone }: Props) {
     <div className={`loading-screen phase-${phase}`} aria-hidden="true">
       <div className="loading-content">
         <div className="loading-monogram">
-          <span className="loading-name loading-name-left">Văn Hà</span>
+          <span className="loading-name hero-name-left">Văn Hà</span>
           <span className="loading-amp">&amp;</span>
-          <span className="loading-name loading-name-right">Thanh Hiền</span>
+          <span className="loading-name hero-name-right">Thanh Hiền</span>
         </div>
         <p className="loading-date">31 · 05 · 2026</p>
         <div className="loading-bar-track">

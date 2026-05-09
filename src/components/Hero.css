@@ -164,14 +164,14 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px 20px;
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 500;
+  font-size: clamp(4rem, 12vw, 8.5rem);
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.01em;
-  font-family: var(--font-heading);
-  font-weight: 500;
+  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-style: normal;
   color: var(--charcoal);
-  line-height: 1.2;
+  line-height: 1.25;
   flex-direction: column;
 }
 
@@ -203,16 +203,14 @@
 }
 
 .hero-name-left {
-  animation:
-    name-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both,
+  animation: name-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both,
     /* alternate eliminates the loop-boundary snap that caused flicker */
-    text-shimmer 9s ease-in-out 4s infinite alternate;
+      text-shimmer 9s ease-in-out 0.5s infinite alternate;
 }
 
 .hero-name-right {
-  animation:
-    name-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both,
-    text-shimmer 9s ease-in-out 5s infinite alternate;
+  animation: name-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both,
+    text-shimmer 9s ease-in-out 0.8s infinite alternate;
 }
 
 .hero-ampersand {

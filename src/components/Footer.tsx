@@ -4,8 +4,6 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <div className="footer-monogram">VH &amp; TH</div>
-
         <p className="footer-quote">
           "Tình yêu không phải là tìm kiếm người hoàn hảo,
           <br />
