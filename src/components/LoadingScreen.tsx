@@ -13,8 +13,11 @@ export default function LoadingScreen({ onDone }: Props) {
   // self-contained guard against the parent passing a fresh arrow each render —
   // without it, a new onDone reference would re-trigger the effect, the timers
   // would re-schedule, and the splash would replay a second time.
+  // Sync via effect (not during render) — React 19 forbids mutating refs in render.
   const onDoneRef = useRef(onDone);
-  onDoneRef.current = onDone;
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("hold"), 400);
