@@ -1,19 +1,15 @@
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useSide } from "../sideContext";
+import { SIDE_CONFIG } from "../sideConfig";
 import "./Location.css";
-
-const VENUE = {
-  name: "Tại gia đình chúng tôi",
-  address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh",
-  coords: "21.2409791,106.5760376",
-  details: [] as string[],
-};
-
-const mapQuery = encodeURIComponent(VENUE.coords);
-const embedSrc = `https://maps.google.com/maps?q=${mapQuery}&z=17&output=embed`;
-const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 
 export default function Location() {
   const sectionRef = useScrollReveal<HTMLElement>();
+  const VENUE = SIDE_CONFIG[useSide()].venue;
+
+  const mapQuery = encodeURIComponent(VENUE.coords);
+  const embedSrc = `https://maps.google.com/maps?q=${mapQuery}&z=17&output=embed`;
+  const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`;
 
   return (
     <section

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTypewriter } from "../hooks/useTypewriter";
+import { useSide } from "../sideContext";
+import { SIDE_CONFIG } from "../sideConfig";
 import "./Hero.css";
 
 const WEDDING_DATE = new Date(2026, 4, 31, 10, 0, 0);
@@ -44,6 +46,7 @@ export default function Hero() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft);
   const bgRef = useRef<HTMLDivElement>(null);
   const petalsRef = useRef<HTMLDivElement>(null);
+  const sideData = SIDE_CONFIG[useSide()];
   const [tagline, twDone] = useTypewriter(
     "Hành trình đẹp nhất bắt đầu từ đây ✨",
     55,
@@ -105,9 +108,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-content">
-        <p className="hero-pre">
-          Trân trọng kính mời bạn đến tham dự lễ cưới của
-        </p>
+        <p className="hero-pre">{sideData.invitationFrom}</p>
 
         <div className="hero-names">
           <p className="hero-name-left">Văn Hà</p>

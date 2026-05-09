@@ -1,31 +1,38 @@
 import { useEffect, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useSide } from '../sideContext'
+import { SIDE_CONFIG } from '../sideConfig'
 import './WeddingDetails.css'
-
-const DETAILS = [
-  {
-    icon: '📅',
-    label: 'Ngày & Giờ',
-    title: '31.05.2026',
-    lines: ['Chủ Nhật', 'Lễ thành hôn: 10:00 sáng', 'Tiệc mừng: 11:30 sáng'],
-  },
-  {
-    icon: '📍',
-    label: 'Địa Điểm',
-    title: 'Trung Tâm Tiệc Cưới Hoàng Gia',
-    lines: ['123 Đường Nguyễn Huệ, Quận 1', 'TP. Hồ Chí Minh', 'Sảnh: Vàng — Tầng 3'],
-  },
-  {
-    icon: '👗',
-    label: 'Dress Code',
-    title: 'Thanh Lịch & Tươi Sáng',
-    lines: ['Formal hoặc Semi-formal', 'Gợi ý: Trắng, Kem, Pastel', 'Hãy tỏa sáng theo cách của bạn ✨'],
-  },
-]
 
 export default function WeddingDetails() {
   const sectionRef = useScrollReveal<HTMLElement>()
   const gridRef = useRef<HTMLDivElement>(null)
+  const data = SIDE_CONFIG[useSide()]
+
+  const DETAILS = [
+    {
+      icon: '📅',
+      label: 'Ngày & Giờ',
+      title: '31.05.2026',
+      lines: [
+        'Chủ Nhật',
+        `${data.eventName}: ${data.ceremonyTime}`,
+        `Tiệc mừng: ${data.receptionTime}`,
+      ],
+    },
+    {
+      icon: '📍',
+      label: 'Địa Điểm',
+      title: data.venue.name,
+      lines: [data.venue.address, ...data.venue.details],
+    },
+    {
+      icon: '👗',
+      label: 'Dress Code',
+      title: 'Thanh Lịch & Tươi Sáng',
+      lines: ['Formal hoặc Semi-formal', 'Gợi ý: Trắng, Kem, Pastel', 'Hãy tỏa sáng theo cách của bạn ✨'],
+    },
+  ]
 
   useEffect(() => {
     if (!window.matchMedia('(hover: hover)').matches) return

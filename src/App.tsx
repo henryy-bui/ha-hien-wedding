@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { SideProvider, detectSide } from './sideContext'
 import LoadingScreen from './components/LoadingScreen'
 import CursorEffect from './components/CursorEffect'
 import AudioPlayer from './components/AudioPlayer'
@@ -16,9 +17,10 @@ import './App.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false)
+  const side = detectSide()
 
   return (
-    <>
+    <SideProvider side={side}>
       {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
       <CursorEffect />
       {loaded && (
@@ -36,7 +38,7 @@ function App() {
           <Footer />
         </>
       )}
-    </>
+    </SideProvider>
   )
 }
 
