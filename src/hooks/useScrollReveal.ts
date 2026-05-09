@@ -1,14 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-type WipeDir = 'up' | 'left' | 'right'
-
-const WIPE_START: Record<WipeDir, string> = {
-  up:    'inset(0 0 100% 0)',
-  left:  'inset(0 100% 0 0)',
-  right: 'inset(0 0 0 100%)',
-}
-
-export function useScrollReveal<T extends HTMLElement>(wipeDirection?: WipeDir) {
+export function useScrollReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null)
 
   useEffect(() => {
@@ -16,23 +8,17 @@ export function useScrollReveal<T extends HTMLElement>(wipeDirection?: WipeDir) 
     if (!container) return
 
     const cleanups: Array<() => void> = []
+    const hasWipe = Boolean(container.dataset.wipe)
 
-    // ── Clip-path wipe on the section itself ──────────────────────
-    if (wipeDirection) {
-      container.style.clipPath = WIPE_START[wipeDirection]
+    const triggerWipe = () => {
+      if (hasWipe) container.classList.add('wipe-in')
+    }
 
+    // ── Early wipe trigger via section bounding-box intersection ──
+    if (hasWipe) {
       const wipeObs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              container.style.transition = 'clip-path 0.95s cubic-bezier(0.77, 0, 0.18, 1)'
-              container.style.clipPath   = 'inset(0 0 0 0)'
-            })
-          })
-          wipeObs.disconnect()
-        }
-      }, { threshold: 0.03 })
-
+        if (entry.isIntersecting) { triggerWipe(); wipeObs.disconnect() }
+      }, { threshold: 0 })
       wipeObs.observe(container)
       cleanups.push(() => wipeObs.disconnect())
     }
@@ -44,6 +30,7 @@ export function useScrollReveal<T extends HTMLElement>(wipeDirection?: WipeDir) 
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+              triggerWipe()                          // guaranteed fallback
               entry.target.classList.add('visible')
               revealObs.unobserve(entry.target)
             }
@@ -56,7 +43,7 @@ export function useScrollReveal<T extends HTMLElement>(wipeDirection?: WipeDir) 
     }
 
     return () => cleanups.forEach((fn) => fn())
-  }, [wipeDirection])
+  }, [])
 
   return ref
 }

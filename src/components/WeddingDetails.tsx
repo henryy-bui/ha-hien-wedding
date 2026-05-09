@@ -24,7 +24,7 @@ const DETAILS = [
 ]
 
 export default function WeddingDetails() {
-  const sectionRef = useScrollReveal<HTMLElement>('left')
+  const sectionRef = useScrollReveal<HTMLElement>()
   const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function WeddingDetails() {
   }, [])
 
   return (
-    <section className="details-bg" ref={sectionRef} id="details">
+    <section className="details-bg" ref={sectionRef} id="details" data-wipe="left">
       <div className="section" style={{ textAlign: 'center' }}>
         <div className="reveal">
           <span className="section-label">Thông Tin Đám Cưới</span>

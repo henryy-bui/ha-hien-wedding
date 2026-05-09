@@ -71,6 +71,17 @@ button { cursor: pointer; font-family: var(--font-body); }
 .reveal-delay-5 { transition-delay: 0.50s; }
 .reveal-delay-6 { transition-delay: 0.60s; }
 
+/* ─── Section clip-path wipe (data-wipe attribute) ──────────── */
+@keyframes wipe-right { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
+@keyframes wipe-left  { from { clip-path: inset(0 100% 0 0);  } to { clip-path: inset(0); } }
+@keyframes wipe-up    { from { clip-path: inset(0 0 100% 0);  } to { clip-path: inset(0); } }
+
+[data-wipe="right"] { animation: wipe-right 0.9s cubic-bezier(0.77, 0, 0.18, 1) both paused; }
+[data-wipe="left"]  { animation: wipe-left  0.9s cubic-bezier(0.77, 0, 0.18, 1) both paused; }
+[data-wipe="up"]    { animation: wipe-up    0.9s cubic-bezier(0.77, 0, 0.18, 1) both paused; }
+
+[data-wipe].wipe-in { animation-play-state: running; }
+
 /* ─── Entrance variants ──────────────────────────────────────── */
 .reveal.reveal-left  { transform: translateX(-52px); }
 .reveal.reveal-right { transform: translateX(52px); }

@@ -29,10 +29,10 @@ const MILESTONES = [
 ]
 
 export default function OurStory() {
-  const sectionRef = useScrollReveal<HTMLElement>('right')
+  const sectionRef = useScrollReveal<HTMLElement>()
 
   return (
-    <section className="our-story-bg" ref={sectionRef} id="our-story">
+    <section className="our-story-bg" ref={sectionRef} id="our-story" data-wipe="right">
       <div className="section">
         <div className="reveal" style={{ textAlign: 'center' }}>
           <span className="section-label">Câu Chuyện Của Chúng Mình</span>

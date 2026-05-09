@@ -16,7 +16,7 @@ interface FormErrors {
 }
 
 export default function RSVP() {
-  const sectionRef = useScrollReveal<HTMLElement>('left')
+  const sectionRef = useScrollReveal<HTMLElement>()
   const [form, setForm] = useState<FormState>({ name: '', attending: '', guests: '1' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitted, setSubmitted] = useState(false)
@@ -48,7 +48,7 @@ export default function RSVP() {
   }
 
   return (
-    <section className="rsvp-bg" ref={sectionRef} id="rsvp">
+    <section className="rsvp-bg" ref={sectionRef} id="rsvp" data-wipe="left">
       <div className="section" style={{ textAlign: 'center' }}>
         <div className="reveal">
           <span className="section-label">Xác Nhận Tham Dự</span>

@@ -11,10 +11,10 @@ const PHOTOS = [
 ]
 
 export default function Gallery() {
-  const sectionRef = useScrollReveal<HTMLElement>('up')
+  const sectionRef = useScrollReveal<HTMLElement>()
 
   return (
-    <section className="gallery-bg" ref={sectionRef} id="gallery">
+    <section className="gallery-bg" ref={sectionRef} id="gallery" data-wipe="up">
       <div className="section" style={{ textAlign: 'center' }}>
         <div className="reveal">
           <span className="section-label">Khoảnh Khắc</span>

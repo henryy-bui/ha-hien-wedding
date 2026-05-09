@@ -35,10 +35,10 @@ const RULES = [
 ]
 
 export default function HumorSection() {
-  const sectionRef = useScrollReveal<HTMLElement>('right')
+  const sectionRef = useScrollReveal<HTMLElement>()
 
   return (
-    <section className="humor-bg" ref={sectionRef} id="notes">
+    <section className="humor-bg" ref={sectionRef} id="notes" data-wipe="right">
       <div className="section" style={{ textAlign: 'center' }}>
         <div className="reveal">
           <span className="section-label">Lưu Ý Quan Trọng</span>
