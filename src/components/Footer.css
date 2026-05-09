@@ -1,0 +1,59 @@
+.footer {
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: 72px 24px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-monogram {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+}
+
+.footer-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: rgba(255, 248, 240, 0.65);
+  max-width: 420px;
+}
+
+.footer-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+
+.footer-names {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+}
+
+.footer-date {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.42em;
+  color: var(--gold);
+}
+
+.footer-credit {
+  font-size: 0.78rem;
+  color: rgba(255, 248, 240, 0.35);
+  margin-top: 6px;
+}

@@ -1,0 +1,102 @@
+.our-story-bg {
+  background: var(--white);
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold-light) 8%, var(--gold-light) 92%, transparent);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 28px 0;
+}
+
+.timeline-item.tl-left  { justify-content: flex-start; padding-right: calc(50% + 48px); }
+.timeline-item.tl-right { justify-content: flex-end;   padding-left:  calc(50% + 48px); }
+
+.timeline-card {
+  background: var(--cream);
+  border: 1px solid var(--gold-light);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  max-width: 380px;
+  transition: box-shadow var(--transition), transform var(--transition);
+  text-align: left;
+}
+
+.timeline-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+.tl-emoji {
+  font-size: 1.7rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tl-year {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.tl-title {
+  font-size: 1.25rem;
+  color: var(--charcoal);
+  margin-bottom: 10px;
+}
+
+.tl-desc {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.75;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--gold-light);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .timeline::before { left: 20px; }
+
+  .timeline-item.tl-left,
+  .timeline-item.tl-right {
+    justify-content: flex-start;
+    padding-left: 52px;
+    padding-right: 0;
+  }
+
+  .timeline-dot { left: 20px; }
+  .timeline-card { max-width: 100%; }
+}

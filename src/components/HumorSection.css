@@ -1,0 +1,54 @@
+.humor-bg {
+  background: var(--white);
+}
+
+.humor-sub {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.humor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.humor-card {
+  background: var(--cream);
+  border: 1px solid var(--rose-light);
+  border-radius: var(--radius);
+  padding: 28px 22px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.humor-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 16px 40px rgba(232, 165, 152, 0.22);
+}
+
+.humor-emoji { font-size: 2rem; }
+
+.humor-rule {
+  font-size: 0.98rem;
+  color: var(--charcoal);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.humor-note {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+@media (max-width: 900px) { .humor-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .humor-grid { grid-template-columns: 1fr; } }
