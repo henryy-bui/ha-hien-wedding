@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import Lightbox from './Lightbox'
 import './Gallery.css'
 
 const PHOTOS = [
@@ -12,6 +14,13 @@ const PHOTOS = [
 
 export default function Gallery() {
   const sectionRef = useScrollReveal<HTMLElement>()
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  const close = () => setOpenIndex(null)
+  const prev = () =>
+    setOpenIndex((i) => (i === null ? i : (i - 1 + PHOTOS.length) % PHOTOS.length))
+  const next = () =>
+    setOpenIndex((i) => (i === null ? i : (i + 1) % PHOTOS.length))
 
   return (
     <section className="gallery-bg" ref={sectionRef} id="gallery" data-wipe="up">
@@ -24,17 +33,18 @@ export default function Gallery() {
 
         <div className="gallery-grid">
           {PHOTOS.map((p, i) => (
-            <div
+            <button
               key={i}
+              type="button"
               className={`gallery-item reveal reveal-delay-${(i % 3) + 1} reveal-blur`}
               style={{ background: p.bg }}
-              role="img"
-              aria-label={p.label}
+              aria-label={`Mở ảnh: ${p.label}`}
+              onClick={() => setOpenIndex(i)}
             >
               <div className="gallery-overlay">
                 <span className="gallery-heart">♥</span>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -42,6 +52,14 @@ export default function Gallery() {
           Ảnh thật sẽ được cập nhật sau buổi chụp pre-wedding 📸
         </p>
       </div>
+
+      <Lightbox
+        photos={PHOTOS}
+        index={openIndex}
+        onClose={close}
+        onPrev={prev}
+        onNext={next}
+      />
     </section>
   )
 }
