@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import './NavDots.css'
 
 const SECTIONS = [
-  { id: 'hero',      label: 'Đầu trang'   },
-  { id: 'our-story', label: 'Câu chuyện'  },
-  { id: 'details',   label: 'Chi tiết'    },
-  { id: 'notes',     label: 'Lưu ý'       },
-  { id: 'gallery',   label: 'Khoảnh khắc' },
-  { id: 'rsvp',      label: 'Xác nhận'    },
+  { id: 'hero',         label: 'Đầu trang'   },
+  { id: 'introduction', label: 'Đôi lứa'     },
+  { id: 'our-story',    label: 'Câu chuyện'  },
+  { id: 'details',      label: 'Chi tiết'    },
+  { id: 'notes',        label: 'Lưu ý'       },
+  { id: 'gallery',      label: 'Khoảnh khắc' },
+  { id: 'rsvp',         label: 'Xác nhận'    },
 ]
 
 export default function NavDots() {

@@ -95,9 +95,9 @@ export default function Hero() {
         </p>
 
         <h1 className="hero-names">
-          <span className="hero-name-left">Van Ha</span>
+          <span className="hero-name-left">Văn Hà</span>
           <span className="hero-ampersand">&amp;</span>
-          <span className="hero-name-right">Thanh Hien</span>
+          <span className="hero-name-right">Thanh Hiền</span>
         </h1>
 
         <div className="hero-date-row">

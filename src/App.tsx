@@ -5,6 +5,7 @@ import AudioPlayer from './components/AudioPlayer'
 import ScrollProgress from './components/ScrollProgress'
 import NavDots from './components/NavDots'
 import Hero from './components/Hero'
+import Introduction from './components/Introduction'
 import OurStory from './components/OurStory'
 import WeddingDetails from './components/WeddingDetails'
 import HumorSection from './components/HumorSection'
@@ -26,6 +27,7 @@ function App() {
           <ScrollProgress />
           <NavDots />
           <Hero />
+          <Introduction />
           <OurStory />
           <WeddingDetails />
           <HumorSection />

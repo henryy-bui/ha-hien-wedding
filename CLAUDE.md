@@ -21,7 +21,7 @@ yarn preview    # Preview the production build locally
 
 ## Architecture
 
-Online wedding invitation for Van Ha & Thanh Hien (31/05/2026). Single-page app: `index.html` → `src/main.tsx` → `src/App.tsx`, which composes 7 section components in order.
+Online wedding invitation for Văn Hà & Thanh Hiền (31/05/2026). Single-page app: `index.html` → `src/main.tsx` → `src/App.tsx`, which composes 7 section components in order.
 
 ### Scroll reveal
 
@@ -31,15 +31,15 @@ Online wedding invitation for Van Ha & Thanh Hien (31/05/2026). Single-page app:
 
 Each component has a co-located `.css` file. CSS custom properties (colors, fonts, spacing tokens) are defined in `src/index.css` and used across all component stylesheets — do not hardcode color hex values in component CSS.
 
-| Component | Key behaviour |
-|---|---|
-| `Hero` | Parallax bg via scroll listener, 12 bokeh particles (inline `style` for per-particle timing), live countdown timer via `setInterval` |
-| `OurStory` | Timeline alternates left/right (`.tl-left` / `.tl-right`) on desktop, collapses to single column on mobile |
-| `WeddingDetails` | 3-column card grid, responsive to 1-column below 900 px |
-| `HumorSection` | 6-card grid (3→2→1 col) with tilt hover |
-| `Gallery` | Gradient placeholder photos; real photos drop in by replacing the `PHOTOS` array `bg` values with `url(...)` strings |
-| `RSVP` | Controlled form with local validation; fires a 3-wave `canvas-confetti` burst on submit when attending |
-| `Footer` | Static; no interactivity |
+| Component        | Key behaviour                                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `Hero`           | Parallax bg via scroll listener, 12 bokeh particles (inline `style` for per-particle timing), live countdown timer via `setInterval` |
+| `OurStory`       | Timeline alternates left/right (`.tl-left` / `.tl-right`) on desktop, collapses to single column on mobile                           |
+| `WeddingDetails` | 3-column card grid, responsive to 1-column below 900 px                                                                              |
+| `HumorSection`   | 6-card grid (3→2→1 col) with tilt hover                                                                                              |
+| `Gallery`        | Gradient placeholder photos; real photos drop in by replacing the `PHOTOS` array `bg` values with `url(...)` strings                 |
+| `RSVP`           | Controlled form with local validation; fires a 3-wave `canvas-confetti` burst on submit when attending                               |
+| `Footer`         | Static; no interactivity                                                                                                             |
 
 ### Styling conventions
 
@@ -50,6 +50,6 @@ Each component has a co-located `.css` file. CSS custom properties (colors, font
 
 ### Wedding details (for copy changes)
 
-- Couple: **Van Ha & Thanh Hien**
+- Couple: **Văn Hà & Thanh Hiền**
 - Date: **31 tháng 05 năm 2026** — countdown target is `new Date(2026, 4, 31, 10, 0, 0)` in `Hero.tsx`
 - All user-facing text is in **Vietnamese**
