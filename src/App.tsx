@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      <LoadingScreen onDone={() => setLoaded(true)} />
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
       <CursorEffect />
       {loaded && (
         <>

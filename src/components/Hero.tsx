@@ -72,7 +72,9 @@ export default function Hero() {
         if (bgRef.current)
           bgRef.current.style.transform = `translateY(${y * 0.15 * factor}px)`;
         if (petalsRef.current)
-          petalsRef.current.style.transform = `translateY(${y * 0.42 * factor}px)`;
+          petalsRef.current.style.transform = `translateY(${
+            y * 0.42 * factor
+          }px)`;
         ticking = false;
       });
     };
@@ -107,11 +109,11 @@ export default function Hero() {
           Trân trọng kính mời bạn đến tham dự lễ cưới của
         </p>
 
-        <h1 className="hero-names">
-          <span className="hero-name-left">Văn Hà</span>
-          <span className="hero-ampersand">&amp;</span>
-          <span className="hero-name-right">Thanh Hiền</span>
-        </h1>
+        <div className="hero-names">
+          <p className="hero-name-left">Văn Hà</p>
+          <p className="hero-ampersand">&amp;</p>
+          <p className="hero-name-right">Thanh Hiền</p>
+        </div>
 
         <div className="hero-date-row">
           <span className="hero-rule" />
