@@ -8,7 +8,6 @@ import Hero from './components/Hero'
 import Introduction from './components/Introduction'
 import OurStory from './components/OurStory'
 import WeddingDetails from './components/WeddingDetails'
-import HumorSection from './components/HumorSection'
 import Gallery from './components/Gallery'
 import RSVP from './components/RSVP'
 import Footer from './components/Footer'
@@ -30,7 +29,6 @@ function App() {
           <Introduction />
           <OurStory />
           <WeddingDetails />
-          <HumorSection />
           <Gallery />
           <RSVP />
           <Footer />

@@ -6,7 +6,6 @@ const SECTIONS = [
   { id: 'introduction', label: 'Đôi lứa'     },
   { id: 'our-story',    label: 'Câu chuyện'  },
   { id: 'details',      label: 'Chi tiết'    },
-  { id: 'notes',        label: 'Lưu ý'       },
   { id: 'gallery',      label: 'Khoảnh khắc' },
   { id: 'rsvp',         label: 'Xác nhận'    },
 ]
