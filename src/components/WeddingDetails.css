@@ -17,12 +17,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: box-shadow var(--transition), transform var(--transition);
+  /* Transform handled by JS on pointer devices; box-shadow still transitions in CSS */
+  transition: box-shadow 0.35s ease;
+  will-change: transform;
 }
 
 .detail-card:hover {
   box-shadow: var(--shadow-hover);
-  transform: translateY(-6px);
 }
 
 .detail-icon {

@@ -1,8 +1,23 @@
-@keyframes drift {
-  0%,  100% { transform: translate(0, 0)      scale(1);    }
-  25%        { transform: translate(18px, -25px) scale(1.06); }
-  50%        { transform: translate(-12px, -12px) scale(0.96); }
-  75%        { transform: translate(22px, -35px)  scale(1.03); }
+/* ─── Keyframes ─────────────────────────────────────────────── */
+
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+@keyframes fall-petal {
+  0%   { transform: translate(0,     -20px) rotate(0deg);   opacity: 0;   }
+  5%   {                                                     opacity: 0.85; }
+  30%  { transform: translate(22px,  30vh)  rotate(240deg); }
+  65%  { transform: translate(-14px, 65vh)  rotate(480deg); }
+  92%  {                                                     opacity: 0.5; }
+  100% { transform: translate(10px,  110vh) rotate(720deg); opacity: 0;   }
+}
+
+@keyframes text-shimmer {
+  from { background-position-x:  200%; }
+  to   { background-position-x: -200%; }
 }
 
 @keyframes name-enter {
@@ -20,6 +35,8 @@
   50%       { transform: scaleY(0.6); opacity: 0.3; }
 }
 
+/* ─── Hero shell ─────────────────────────────────────────────── */
+
 .hero {
   position: relative;
   height: 100svh;
@@ -36,35 +53,39 @@
   position: absolute;
   inset: -20%;
   background: linear-gradient(
-    160deg,
-    #FFF8F0 0%,
-    #FBE8D8 25%,
-    #F5D5CF 55%,
-    #F0D5B5 75%,
-    #FFF8F0 100%
+    -45deg,
+    #FFF8F0, #FBE8D8, #F5C5BC,
+    #E8D5B0, #FBE8D8, #F5D5CF, #FFF8F0
   );
-  will-change: transform;
+  background-size: 400% 400%;
+  animation: gradient-flow 16s ease infinite;
+  will-change: background-position, transform;
 }
 
-.particles {
+/* ─── Petals ─────────────────────────────────────────────────── */
+
+.petals {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
-.particle {
+.petal {
   position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 40% 40%,
-    rgba(201, 169, 110, 0.6),
-    rgba(232, 165, 152, 0.3) 50%,
-    transparent 70%
+  top: -20px;
+  background: linear-gradient(
+    135deg,
+    rgba(232, 165, 152, 0.75),
+    rgba(201, 169, 110, 0.50)
   );
-  filter: blur(8px);
-  animation: drift ease-in-out infinite;
+  border-radius: 70% 30% 70% 30% / 30% 70% 30% 70%;
+  animation: fall-petal linear infinite;
+  will-change: transform, opacity;
 }
+
+/* ─── Content ─────────────────────────────────────────────────── */
 
 .hero-content {
   position: relative;
@@ -87,6 +108,8 @@
   animation: fade-up 1s ease 0.2s both;
 }
 
+/* ─── Names + shimmer ────────────────────────────────────────── */
+
 .hero-names {
   display: flex;
   align-items: center;
@@ -95,13 +118,41 @@
   gap: 12px 20px;
   font-size: clamp(3rem, 9vw, 6.5rem);
   font-weight: 500;
-  color: var(--charcoal);
   line-height: 1;
   letter-spacing: -0.01em;
 }
 
-.hero-name-left  { animation: name-enter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both; }
-.hero-name-right { animation: name-enter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both; }
+.hero-name-left,
+.hero-name-right {
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    var(--charcoal) 0%,
+    var(--charcoal) 20%,
+    #E8D5B0 38%,
+    #FFF4C0 50%,
+    #E8D5B0 62%,
+    var(--charcoal) 80%,
+    var(--charcoal) 100%
+  );
+  background-size: 300% 100%;
+  background-position-x: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-name-left {
+  animation:
+    name-enter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both,
+    text-shimmer 5s linear 3.5s infinite;
+}
+
+.hero-name-right {
+  animation:
+    name-enter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both,
+    text-shimmer 5s linear 4.2s infinite;
+}
 
 .hero-ampersand {
   font-style: italic;
@@ -109,6 +160,8 @@
   font-size: 0.72em;
   animation: fade-up 1s ease 0.5s both;
 }
+
+/* ─── Date row ───────────────────────────────────────────────── */
 
 .hero-date-row {
   display: flex;
@@ -121,8 +174,8 @@
   flex: 1;
   min-width: 36px;
   height: 1px;
-  background: var(--gold);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.7;
 }
 
 .hero-date {
@@ -142,6 +195,8 @@
   animation: fade-up 1s ease 1s both;
 }
 
+/* ─── Countdown ──────────────────────────────────────────────── */
+
 .countdown {
   display: flex;
   gap: clamp(8px, 2vw, 20px);
@@ -154,18 +209,19 @@
   flex-direction: column;
   align-items: center;
   background: var(--white-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 169, 110, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(201, 169, 110, 0.35);
   border-radius: 12px;
   padding: clamp(12px, 2vw, 20px) clamp(14px, 3vw, 26px);
   min-width: clamp(60px, 11vw, 88px);
-  transition: box-shadow var(--transition);
   cursor: default;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .countdown-item:hover {
-  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.3);
+  box-shadow: 0 8px 28px rgba(201, 169, 110, 0.3);
+  border-color: rgba(201, 169, 110, 0.6);
 }
 
 .countdown-value {
@@ -184,6 +240,8 @@
   color: var(--text-muted);
   margin-top: 4px;
 }
+
+/* ─── Scroll indicator ───────────────────────────────────────── */
 
 .hero-scroll {
   position: absolute;
@@ -213,10 +271,9 @@
   transform-origin: top;
 }
 
+/* ─── Responsive ─────────────────────────────────────────────── */
+
 @media (max-width: 640px) {
-  .hero-names {
-    flex-direction: column;
-    gap: 4px;
-  }
+  .hero-names    { flex-direction: column; gap: 4px; }
   .hero-ampersand { font-size: 0.55em; }
 }

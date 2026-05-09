@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import './WeddingDetails.css'
 
@@ -24,6 +25,41 @@ const DETAILS = [
 
 export default function WeddingDetails() {
   const sectionRef = useScrollReveal<HTMLElement>()
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return
+
+    const grid = gridRef.current
+    if (!grid) return
+
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.detail-card'))
+    const cleanups: Array<() => void> = []
+
+    cards.forEach((card) => {
+      const onMove = (e: MouseEvent) => {
+        const r = card.getBoundingClientRect()
+        const x = ((e.clientX - r.left) / r.width  - 0.5) * 18
+        const y = ((e.clientY - r.top)  / r.height - 0.5) * -14
+        card.style.transition = 'box-shadow 0.3s ease'
+        card.style.transform  = `perspective(900px) rotateY(${x}deg) rotateX(${y}deg) translateY(-6px) scale(1.01)`
+      }
+
+      const onLeave = () => {
+        card.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease'
+        card.style.transform  = ''
+      }
+
+      card.addEventListener('mousemove', onMove)
+      card.addEventListener('mouseleave', onLeave)
+      cleanups.push(() => {
+        card.removeEventListener('mousemove', onMove)
+        card.removeEventListener('mouseleave', onLeave)
+      })
+    })
+
+    return () => cleanups.forEach((fn) => fn())
+  }, [])
 
   return (
     <section className="details-bg" ref={sectionRef} id="details">
@@ -34,7 +70,7 @@ export default function WeddingDetails() {
           <div className="section-divider" />
         </div>
 
-        <div className="details-grid">
+        <div className="details-grid" ref={gridRef}>
           {DETAILS.map((d, i) => (
             <div key={d.label} className={`detail-card reveal reveal-delay-${i + 1}`}>
               <span className="detail-icon">{d.icon}</span>

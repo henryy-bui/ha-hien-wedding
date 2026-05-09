@@ -21,19 +21,22 @@ function getTimeLeft(): TimeLeft {
   }
 }
 
-const PARTICLES = [
-  { size: 80,  top: '12%', left: '8%',  dur: 9,    delay: 0,   opacity: 0.25 },
-  { size: 50,  top: '22%', left: '85%', dur: 12,   delay: 1.5, opacity: 0.20 },
-  { size: 120, top: '58%', left: '4%',  dur: 11,   delay: 3,   opacity: 0.15 },
-  { size: 40,  top: '70%', left: '79%', dur: 8,    delay: 0.5, opacity: 0.30 },
-  { size: 90,  top: '38%', left: '91%', dur: 13,   delay: 2,   opacity: 0.18 },
-  { size: 30,  top: '8%',  left: '58%', dur: 7,    delay: 4,   opacity: 0.35 },
-  { size: 70,  top: '80%', left: '28%', dur: 10,   delay: 1,   opacity: 0.20 },
-  { size: 55,  top: '48%', left: '14%', dur: 9.5,  delay: 2.5, opacity: 0.22 },
-  { size: 100, top: '28%', left: '48%', dur: 14,   delay: 0.7, opacity: 0.12 },
-  { size: 35,  top: '84%', left: '64%', dur: 8.5,  delay: 3.5, opacity: 0.28 },
-  { size: 65,  top: '4%',  left: '33%', dur: 11.5, delay: 1.2, opacity: 0.20 },
-  { size: 45,  top: '90%', left: '88%', dur: 9,    delay: 4.5, opacity: 0.25 },
+const PETALS = [
+  { w: 10, h: 14, left: '5%',  dur: 9,    delay: -2   },
+  { w: 8,  h: 11, left: '15%', dur: 7,    delay: -5   },
+  { w: 12, h: 16, left: '25%', dur: 11,   delay: -8   },
+  { w: 9,  h: 13, left: '35%', dur: 8,    delay: -1   },
+  { w: 11, h: 15, left: '45%', dur: 10,   delay: -6   },
+  { w: 7,  h: 10, left: '55%', dur: 9.5,  delay: -3   },
+  { w: 13, h: 17, left: '65%', dur: 12,   delay: -7   },
+  { w: 8,  h: 12, left: '75%', dur: 7.5,  delay: -4   },
+  { w: 10, h: 14, left: '85%', dur: 10.5, delay: -9   },
+  { w: 9,  h: 13, left: '92%', dur: 8.5,  delay: -2.5 },
+  { w: 11, h: 15, left: '10%', dur: 13,   delay: -11  },
+  { w: 7,  h: 10, left: '58%', dur: 6.5,  delay: -0.5 },
+  { w: 12, h: 16, left: '40%', dur: 9.5,  delay: -5.5 },
+  { w: 8,  h: 12, left: '78%', dur: 11.5, delay: -3.5 },
+  { w: 10, h: 14, left: '30%', dur: 8,    delay: -7.5 },
 ]
 
 export default function Hero() {
@@ -58,20 +61,18 @@ export default function Hero() {
   const pad = (n: number) => String(n).padStart(2, '0')
 
   return (
-    <section className="hero" aria-label="Thiệp mời">
+    <section className="hero" id="hero" aria-label="Thiệp mời">
       <div className="hero-bg" ref={bgRef} />
 
-      <div className="particles" aria-hidden="true">
-        {PARTICLES.map((p, i) => (
+      <div className="petals" aria-hidden="true">
+        {PETALS.map((p, i) => (
           <div
             key={i}
-            className="particle"
+            className="petal"
             style={{
-              width: p.size,
-              height: p.size,
-              top: p.top,
+              width: p.w,
+              height: p.h,
               left: p.left,
-              opacity: p.opacity,
               animationDuration: `${p.dur}s`,
               animationDelay: `${p.delay}s`,
             }}

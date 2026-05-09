@@ -1,3 +1,5 @@
+import ScrollProgress from './components/ScrollProgress'
+import NavDots from './components/NavDots'
 import Hero from './components/Hero'
 import OurStory from './components/OurStory'
 import WeddingDetails from './components/WeddingDetails'
@@ -10,6 +12,8 @@ import './App.css'
 function App() {
   return (
     <>
+      <ScrollProgress />
+      <NavDots />
       <Hero />
       <OurStory />
       <WeddingDetails />

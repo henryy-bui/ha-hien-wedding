@@ -101,6 +101,16 @@ button { cursor: pointer; font-family: var(--font-body); }
   border-radius: 1px;
 }
 
+/* Section-divider slides in from center when its reveal parent becomes visible */
+.reveal .section-divider {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+.reveal.visible .section-divider {
+  transform: scaleX(1);
+}
+
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
