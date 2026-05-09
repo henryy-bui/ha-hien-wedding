@@ -1,3 +1,4 @@
+import AudioPlayer from './components/AudioPlayer'
 import ScrollProgress from './components/ScrollProgress'
 import NavDots from './components/NavDots'
 import Hero from './components/Hero'
@@ -12,6 +13,7 @@ import './App.css'
 function App() {
   return (
     <>
+      <AudioPlayer />
       <ScrollProgress />
       <NavDots />
       <Hero />
