@@ -1,7 +1,7 @@
 .footer {
   background: var(--charcoal);
   color: var(--cream);
-  padding: 72px 24px;
+  padding: clamp(48px, 8vw, 72px) clamp(20px, 4vw, 32px) calc(clamp(48px, 8vw, 72px) + env(safe-area-inset-bottom));
   text-align: center;
 }
 
@@ -16,7 +16,7 @@
 
 .footer-monogram {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 5vw, 2rem);
   font-weight: 500;
   color: var(--gold);
   letter-spacing: 0.18em;

@@ -119,7 +119,7 @@ export default function Introduction() {
                   )}
 
                   <div className="intro-parents">
-                    <span className="intro-parents-label">— Phụ Mẫu —</span>
+                    <span className="intro-parents-label">Phụ Mẫu</span>
                     <p className="intro-parent">{p.parents.father}</p>
                     <p className="intro-parent">{p.parents.mother}</p>
                   </div>

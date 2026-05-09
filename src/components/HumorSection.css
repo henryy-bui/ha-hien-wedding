@@ -29,9 +29,11 @@
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.humor-card:hover {
-  transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow: 0 16px 40px rgba(232, 165, 152, 0.22);
+@media (hover: hover) {
+  .humor-card:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+    box-shadow: 0 16px 40px rgba(232, 165, 152, 0.22);
+  }
 }
 
 .humor-emoji { font-size: 2rem; }
@@ -50,5 +52,11 @@
   font-style: italic;
 }
 
-@media (max-width: 900px) { .humor-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .humor-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .humor-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 460px) {
+  .humor-grid { grid-template-columns: 1fr; }
+  .humor-card { padding: 22px 18px; }
+  .humor-emoji { font-size: 1.7rem; }
+  .humor-rule  { font-size: 0.94rem; }
+  .humor-note  { font-size: 0.82rem; }
+}

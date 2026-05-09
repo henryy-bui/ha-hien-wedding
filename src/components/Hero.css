@@ -40,7 +40,7 @@
 .hero {
   position: relative;
   height: 100svh;
-  min-height: 600px;
+  min-height: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,9 +235,11 @@
   transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.countdown-item:hover {
-  box-shadow: 0 8px 28px rgba(201, 169, 110, 0.3);
-  border-color: rgba(201, 169, 110, 0.6);
+@media (hover: hover) {
+  .countdown-item:hover {
+    box-shadow: 0 8px 28px rgba(201, 169, 110, 0.3);
+    border-color: rgba(201, 169, 110, 0.6);
+  }
 }
 
 .countdown-value {
@@ -292,4 +294,41 @@
 @media (max-width: 640px) {
   .hero-names    { flex-direction: column; gap: 4px; }
   .hero-ampersand { font-size: 0.55em; }
+}
+
+@media (max-width: 480px) {
+  .hero-content   { gap: 16px; padding: 0 18px; }
+  .hero-pre       { font-size: 0.72rem; letter-spacing: 0.18em; }
+  .hero-tagline   { font-size: 0.92rem; }
+  .countdown      { gap: 8px; }
+  .countdown-item {
+    padding: 10px 12px;
+    min-width: 54px;
+    border-radius: 10px;
+  }
+  .countdown-value { font-size: 1.5rem; }
+  .countdown-label { font-size: 0.55rem; letter-spacing: 0.14em; }
+  .hero-scroll     { bottom: 22px; }
+  .hero-rule       { min-width: 24px; }
+}
+
+/* ─── Reduced motion: stop decorative loops ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .petal { display: none; }
+  .hero-bg { animation: none; }
+  .hero-name-left,
+  .hero-name-right {
+    animation: name-enter 1s ease both;
+    background-position-x: 50%;
+  }
+  .hero-pre,
+  .hero-ampersand,
+  .hero-date-row,
+  .hero-tagline,
+  .countdown,
+  .hero-scroll {
+    animation: none;
+    opacity: 1;
+  }
+  .hero-scroll-line { animation: none; }
 }

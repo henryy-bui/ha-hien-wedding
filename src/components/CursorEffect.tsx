@@ -6,6 +6,7 @@ const SYMBOLS = ['♥', '✦', '✿', '·', '✨', '❋']
 export default function CursorEffect() {
   useEffect(() => {
     if (!window.matchMedia('(hover: hover)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let last = 0
 

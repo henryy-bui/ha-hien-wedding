@@ -56,12 +56,25 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduceMotion) return;
+
+    let ticking = false;
+
     const handleScroll = () => {
-      const y = window.scrollY;
-      if (bgRef.current)
-        bgRef.current.style.transform = `translateY(${y * 0.15}px)`;
-      if (petalsRef.current)
-        petalsRef.current.style.transform = `translateY(${y * 0.42}px)`;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const factor = window.innerWidth < 720 ? 0.55 : 1;
+        if (bgRef.current)
+          bgRef.current.style.transform = `translateY(${y * 0.15 * factor}px)`;
+        if (petalsRef.current)
+          petalsRef.current.style.transform = `translateY(${y * 0.42 * factor}px)`;
+        ticking = false;
+      });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);

@@ -116,10 +116,12 @@
   transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
-.rsvp-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.4);
+@media (hover: hover) {
+  .rsvp-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 169, 110, 0.4);
+  }
 }
 
 .rsvp-btn:active { transform: translateY(0); }
@@ -157,4 +159,8 @@
 
 @media (max-width: 600px) {
   .rsvp-card { padding: 28px 18px; }
+  .form-group input[type='text'],
+  .form-group input[type='number'] { padding: 14px 14px; font-size: 16px; }
+  .radio-opt { padding: 14px 16px; font-size: 0.95rem; }
+  .rsvp-btn { width: 100%; min-width: 0; padding: 15px 24px; }
 }

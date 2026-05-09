@@ -39,9 +39,11 @@
   text-align: left;
 }
 
-.timeline-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
+@media (hover: hover) {
+  .timeline-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
 }
 
 .tl-emoji {
@@ -88,15 +90,24 @@
 }
 
 @media (max-width: 768px) {
-  .timeline::before { left: 20px; }
+  .timeline::before { left: 18px; }
 
+  .timeline-item {
+    padding: 18px 0;
+  }
   .timeline-item.tl-left,
   .timeline-item.tl-right {
     justify-content: flex-start;
-    padding-left: 52px;
+    padding-left: 42px;
     padding-right: 0;
   }
 
-  .timeline-dot { left: 20px; }
-  .timeline-card { max-width: 100%; }
+  .timeline-dot { left: 18px; width: 12px; height: 12px; }
+  .timeline-card {
+    max-width: 100%;
+    padding: 22px 20px;
+  }
+  .tl-emoji { font-size: 1.5rem; }
+  .tl-title { font-size: 1.12rem; }
+  .tl-desc  { font-size: 0.88rem; }
 }

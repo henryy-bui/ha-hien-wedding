@@ -22,8 +22,10 @@
   will-change: transform;
 }
 
-.detail-card:hover {
-  box-shadow: var(--shadow-hover);
+@media (hover: hover) {
+  .detail-card:hover {
+    box-shadow: var(--shadow-hover);
+  }
 }
 
 .detail-icon {
@@ -66,5 +68,13 @@
     grid-template-columns: 1fr;
     max-width: 440px;
     margin: 0 auto;
+    gap: 16px;
   }
+}
+
+@media (max-width: 480px) {
+  .detail-card { padding: 28px 22px; }
+  .detail-icon { font-size: 1.9rem; margin-bottom: 12px; }
+  .detail-title { font-size: 1.08rem; }
+  .detail-line  { font-size: 0.86rem; }
 }
