@@ -99,15 +99,17 @@
     0 4px 12px rgba(44, 44, 44, 0.06);
   z-index: 1;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease;
+  overflow: hidden;
 }
 
 .intro-photo::before {
   content: "";
   position: absolute;
   inset: 10px;
-  /* border: 1px solid rgba(255, 255, 255, 0.55); */
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 3px;
   pointer-events: none;
+  z-index: 10000000;
 }
 
 .intro-photo::after {

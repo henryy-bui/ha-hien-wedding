@@ -1,10 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import "./Lightbox.css";
 
 export interface LightboxPhoto {
   bg: string;
   label: string;
+  /** CSS aspect-ratio string, e.g. "3 / 4" (portrait), "3 / 2" (landscape). */
+  aspectRatio?: string;
+}
+
+/** Convert "3 / 4" → 0.75 (width / height). Defaults to 3:2 if missing/bad. */
+function arNumeric(ar: string | undefined): number {
+  if (!ar) return 1.5;
+  const [w, h] = ar.split("/").map((s) => Number(s.trim()));
+  return w > 0 && h > 0 ? w / h : 1.5;
 }
 
 interface Props {
@@ -100,7 +109,12 @@ export default function Lightbox({
       >
         <div
           className="lightbox-image"
-          style={{ background: photo.bg }}
+          style={
+            {
+              backgroundImage: `url("${photo.bg}")`,
+              "--ar": arNumeric(photo.aspectRatio),
+            } as CSSProperties
+          }
           role="img"
           aria-label={photo.label}
         />

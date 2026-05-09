@@ -33,7 +33,7 @@ const PEOPLE: Person[] = [
     name: "Văn Hà",
     monogram: "V",
     photoBg: "linear-gradient(155deg, #C9A96E 0%, #E8D5B0 55%, #FBE8D8 100%)",
-    photoUrl: "/image_2.jpg",
+    photoUrl: "/images/groom.jpg",
     accent: "gold",
     bio: "Một chàng trai chân thành với nụ cười ấm áp và niềm tin vững chắc rằng tình yêu là hành trình đáng trân trọng nhất hai người cùng đi.",
     facts: [],
@@ -49,7 +49,7 @@ const PEOPLE: Person[] = [
     name: "Thanh Hiền",
     monogram: "T",
     photoBg: "linear-gradient(155deg, #E8A598 0%, #F5D5CF 55%, #FFF8F0 100%)",
-    photoUrl: "/image_1.jpg",
+    photoUrl: "/images/bride.jpg",
     accent: "rose",
     bio: "Một cô gái dịu dàng với đôi mắt biết cười và tâm hồn lãng mạn — luôn tin rằng những điều nhỏ bé tạo nên hạnh phúc lớn lao nhất.",
     facts: [],
@@ -98,15 +98,19 @@ export default function Introduction() {
                     </span>
                     <div
                       className="intro-photo"
-                      style={{
-                        background: p.photoBg,
-                        backgroundImage: `url(${p.photoUrl})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
+                      style={{ background: p.photoBg }}
                     >
-                      {/* <span className="intro-monogram">{p.monogram}</span> */}
+                      <img
+                        src={p.photoUrl}
+                        alt={p.name}
+                        style={{
+                          scale: p.numeral === "II" ? 2 : 1,
+                          transform:
+                            p.numeral === "II"
+                              ? "translateY(10%) translateX(-5%)"
+                              : "none",
+                        }}
+                      />
                     </div>
                     <span className="intro-photo-caption">— {p.role} —</span>
                   </div>

@@ -1,30 +1,64 @@
-import { useState } from 'react'
-import { useScrollReveal } from '../hooks/useScrollReveal'
-import Lightbox from './Lightbox'
-import './Gallery.css'
+import { useState } from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import Lightbox, { type LightboxPhoto } from "./Lightbox";
+import "./Gallery.css";
 
-const PHOTOS = [
-  { bg: 'linear-gradient(135deg, #F5D5CF 0%, #E8A598 100%)', label: 'Khoảnh khắc 1' },
-  { bg: 'linear-gradient(135deg, #E8D5B0 0%, #C9A96E 100%)', label: 'Khoảnh khắc 2' },
-  { bg: 'linear-gradient(135deg, #FBE8D8 0%, #F5D5CF 100%)', label: 'Khoảnh khắc 3' },
-  { bg: 'linear-gradient(135deg, #C9A96E 0%, #E8A598 100%)', label: 'Khoảnh khắc 4' },
-  { bg: 'linear-gradient(135deg, #F5D5CF 0%, #FBE8D8 100%)', label: 'Khoảnh khắc 5' },
-  { bg: 'linear-gradient(135deg, #E8A598 0%, #C9A96E 100%)', label: 'Khoảnh khắc 6' },
-]
+// `bg` is a URL path; both Gallery and Lightbox wrap it in url(...) at
+// render time. Optimized assets are produced by `yarn optimize:images`
+// (see scripts/optimize-images.mjs) — names are lowercased + sanitized.
+const PHOTOS: LightboxPhoto[] = [
+  {
+    bg: "/images/optimized/akkha02140.jpg",
+    label: "Khoảnh khắc 1",
+    aspectRatio: "2 / 3",
+  },
+  {
+    bg: "/images/optimized/akkha02382.jpg",
+    label: "Khoảnh khắc 2",
+    aspectRatio: "2 / 3",
+  },
+  {
+    bg: "/images/optimized/akkha02460.jpg",
+    label: "Khoảnh khắc 3",
+    aspectRatio: "2 / 3",
+  },
+  {
+    bg: "/images/optimized/akkha02516.jpg",
+    label: "Khoảnh khắc 4",
+    aspectRatio: "2 / 3",
+  },
+  {
+    bg: "/images/optimized/akkha02048.jpg",
+    label: "Khoảnh khắc 5",
+    aspectRatio: "2 / 3",
+  },
+  {
+    bg: "/images/optimized/akkha02464.jpg",
+    label: "Khoảnh khắc 6",
+    aspectRatio: "2 / 3",
+  },
+];
 
 export default function Gallery() {
-  const sectionRef = useScrollReveal<HTMLElement>()
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const sectionRef = useScrollReveal<HTMLElement>();
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const close = () => setOpenIndex(null)
+  const close = () => setOpenIndex(null);
   const prev = () =>
-    setOpenIndex((i) => (i === null ? i : (i - 1 + PHOTOS.length) % PHOTOS.length))
+    setOpenIndex((i) =>
+      i === null ? i : (i - 1 + PHOTOS.length) % PHOTOS.length
+    );
   const next = () =>
-    setOpenIndex((i) => (i === null ? i : (i + 1) % PHOTOS.length))
+    setOpenIndex((i) => (i === null ? i : (i + 1) % PHOTOS.length));
 
   return (
-    <section className="gallery-bg" ref={sectionRef} id="gallery" data-wipe="up">
-      <div className="section" style={{ textAlign: 'center' }}>
+    <section
+      className="gallery-bg"
+      ref={sectionRef}
+      id="gallery"
+      data-wipe="up"
+    >
+      <div className="section" style={{ textAlign: "center" }}>
         <div className="reveal">
           <span className="section-label">Khoảnh Khắc</span>
           <h2 className="section-title">Cùng Nhau Lưu Giữ</h2>
@@ -36,8 +70,13 @@ export default function Gallery() {
             <button
               key={i}
               type="button"
-              className={`gallery-item reveal reveal-delay-${(i % 3) + 1} reveal-blur`}
-              style={{ background: p.bg }}
+              className={`gallery-item reveal reveal-delay-${
+                (i % 3) + 1
+              } reveal-blur`}
+              style={{
+                backgroundImage: `url("${p.bg}")`,
+                aspectRatio: p.aspectRatio,
+              }}
               aria-label={`Mở ảnh: ${p.label}`}
               onClick={() => setOpenIndex(i)}
             >
@@ -47,10 +86,6 @@ export default function Gallery() {
             </button>
           ))}
         </div>
-
-        <p className="gallery-note reveal reveal-delay-2">
-          Ảnh thật sẽ được cập nhật sau buổi chụp pre-wedding 📸
-        </p>
       </div>
 
       <Lightbox
@@ -61,5 +96,5 @@ export default function Gallery() {
         onNext={next}
       />
     </section>
-  )
+  );
 }

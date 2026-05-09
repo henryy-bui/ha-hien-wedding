@@ -46,9 +46,14 @@
 }
 
 .lightbox-image {
-  width: min(1100px, 92vw);
-  aspect-ratio: 3 / 2;
-  max-height: 80svh;
+  /* Aspect ratio per photo via the --ar custom property (numeric, w/h).
+     Width is the smaller of three caps:
+       1100px (hard max), 92vw (mobile-safe), 80svh × --ar (height cap).
+     The third cap is the trick that keeps a tall portrait inside the
+     viewport without breaking aspect ratio. */
+  --ar: 1.5;
+  width: min(1100px, 92vw, calc(80svh * var(--ar)));
+  aspect-ratio: var(--ar);
   border-radius: 14px;
   background-size: cover;
   background-position: center;
@@ -144,8 +149,8 @@
 
 @media (max-width: 540px) {
   .lightbox-image {
-    aspect-ratio: 4 / 5;
-    max-height: 72svh;
+    /* Tighter height cap on small screens so caption stays visible. */
+    width: min(92vw, calc(72svh * var(--ar)));
   }
   .lightbox-nav {
     width: 42px;
