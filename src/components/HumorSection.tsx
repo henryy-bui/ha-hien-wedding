@@ -35,7 +35,7 @@ const RULES = [
 ]
 
 export default function HumorSection() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>('right')
 
   return (
     <section className="humor-bg" ref={sectionRef} id="notes">

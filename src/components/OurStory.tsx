@@ -29,7 +29,7 @@ const MILESTONES = [
 ]
 
 export default function OurStory() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>('right')
 
   return (
     <section className="our-story-bg" ref={sectionRef} id="our-story">

@@ -11,7 +11,7 @@ const PHOTOS = [
 ]
 
 export default function Gallery() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>('up')
 
   return (
     <section className="gallery-bg" ref={sectionRef} id="gallery">

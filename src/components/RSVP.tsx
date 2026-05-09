@@ -16,7 +16,7 @@ interface FormErrors {
 }
 
 export default function RSVP() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>('left')
   const [form, setForm] = useState<FormState>({ name: '', attending: '', guests: '1' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitted, setSubmitted] = useState(false)

@@ -24,7 +24,7 @@ const DETAILS = [
 ]
 
 export default function WeddingDetails() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>('left')
   const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
