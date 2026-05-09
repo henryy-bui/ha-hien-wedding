@@ -26,7 +26,7 @@ export default function Gallery() {
           {PHOTOS.map((p, i) => (
             <div
               key={i}
-              className={`gallery-item reveal reveal-delay-${(i % 3) + 1}`}
+              className={`gallery-item reveal reveal-delay-${(i % 3) + 1} reveal-blur`}
               style={{ background: p.bg }}
               role="img"
               aria-label={p.label}

@@ -1,0 +1,102 @@
+@keyframes loading-name-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes loading-date-in {
+  from { opacity: 0; letter-spacing: 0.6em; }
+  to   { opacity: 1; letter-spacing: 0.35em; }
+}
+
+@keyframes loading-bar-grow {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-screen.phase-enter { opacity: 0; }
+.loading-screen.phase-hold  { opacity: 1; }
+.loading-screen.phase-exit  { opacity: 0; pointer-events: none; }
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.loading-monogram {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loading-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 8vw, 4.2rem);
+  font-weight: 500;
+  background: linear-gradient(
+    90deg,
+    var(--charcoal) 0%,
+    var(--charcoal) 20%,
+    #E8D5B0 38%,
+    #FFF4C0 50%,
+    #E8D5B0 62%,
+    var(--charcoal) 80%,
+    var(--charcoal) 100%
+  );
+  background-size: 300% 100%;
+  background-position-x: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+}
+
+.loading-name-left  { animation: loading-name-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s  both; }
+.loading-name-right { animation: loading-name-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both; }
+
+.loading-amp {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  color: var(--gold);
+  opacity: 0;
+  animation: loading-name-in 0.7s ease 0.42s both;
+}
+
+.loading-date {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--gold);
+  opacity: 0;
+  animation: loading-date-in 0.9s ease 0.85s both;
+}
+
+.loading-bar-track {
+  width: min(220px, 55vw);
+  height: 2px;
+  background: rgba(201, 169, 110, 0.18);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  border-radius: 1px;
+  width: 0%;
+  animation: loading-bar-grow 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.45s both;
+}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTypewriter } from '../hooks/useTypewriter'
 import './Hero.css'
 
 const WEDDING_DATE = new Date(2026, 4, 31, 10, 0, 0)
@@ -41,7 +42,9 @@ const PETALS = [
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft)
-  const bgRef = useRef<HTMLDivElement>(null)
+  const bgRef     = useRef<HTMLDivElement>(null)
+  const petalsRef = useRef<HTMLDivElement>(null)
+  const [tagline, twDone] = useTypewriter('Hành trình đẹp nhất bắt đầu từ đây ✨', 55, 1400)
 
   useEffect(() => {
     const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000)
@@ -50,9 +53,9 @@ export default function Hero() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${window.scrollY * 0.35}px)`
-      }
+      const y = window.scrollY
+      if (bgRef.current)     bgRef.current.style.transform     = `translateY(${y * 0.15}px)`
+      if (petalsRef.current) petalsRef.current.style.transform = `translateY(${y * 0.42}px)`
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -64,7 +67,7 @@ export default function Hero() {
     <section className="hero" id="hero" aria-label="Thiệp mời">
       <div className="hero-bg" ref={bgRef} />
 
-      <div className="petals" aria-hidden="true">
+      <div className="petals" ref={petalsRef} aria-hidden="true">
         {PETALS.map((p, i) => (
           <div
             key={i}
@@ -95,7 +98,9 @@ export default function Hero() {
           <span className="hero-rule" />
         </div>
 
-        <p className="hero-tagline">Hành trình đẹp nhất bắt đầu từ đây ✨</p>
+        <p className="hero-tagline">
+          {tagline}<span className={`hero-cursor${twDone ? ' blink' : ''}`} aria-hidden="true">|</span>
+        </p>
 
         <div className="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
           {(

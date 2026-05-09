@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import LoadingScreen from './components/LoadingScreen'
+import CursorEffect from './components/CursorEffect'
 import AudioPlayer from './components/AudioPlayer'
 import ScrollProgress from './components/ScrollProgress'
 import NavDots from './components/NavDots'
@@ -11,18 +14,26 @@ import Footer from './components/Footer'
 import './App.css'
 
 function App() {
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <>
-      <AudioPlayer />
-      <ScrollProgress />
-      <NavDots />
-      <Hero />
-      <OurStory />
-      <WeddingDetails />
-      <HumorSection />
-      <Gallery />
-      <RSVP />
-      <Footer />
+      <LoadingScreen onDone={() => setLoaded(true)} />
+      <CursorEffect />
+      {loaded && (
+        <>
+          <AudioPlayer />
+          <ScrollProgress />
+          <NavDots />
+          <Hero />
+          <OurStory />
+          <WeddingDetails />
+          <HumorSection />
+          <Gallery />
+          <RSVP />
+          <Footer />
+        </>
+      )}
     </>
   )
 }

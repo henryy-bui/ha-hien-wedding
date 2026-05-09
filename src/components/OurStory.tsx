@@ -44,7 +44,7 @@ export default function OurStory() {
           {MILESTONES.map((m, i) => (
             <div
               key={m.year}
-              className={`timeline-item reveal reveal-delay-${i + 1} ${i % 2 === 0 ? 'tl-left' : 'tl-right'}`}
+              className={`timeline-item reveal reveal-delay-${i + 1} ${i % 2 === 0 ? 'tl-left reveal-left' : 'tl-right reveal-right'}`}
             >
               <div className="timeline-card">
                 <span className="tl-emoji">{m.emoji}</span>

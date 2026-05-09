@@ -59,7 +59,7 @@ export default function RSVP() {
           <div className="section-divider" />
         </div>
 
-        <div className="rsvp-card reveal reveal-delay-2">
+        <div className="rsvp-card reveal reveal-delay-2 reveal-drop">
           {submitted ? (
             <div className="rsvp-success">
               <span className="rsvp-success-icon">{form.attending === 'yes' ? '🎉' : '💌'}</span>

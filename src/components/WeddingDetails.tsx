@@ -72,7 +72,7 @@ export default function WeddingDetails() {
 
         <div className="details-grid" ref={gridRef}>
           {DETAILS.map((d, i) => (
-            <div key={d.label} className={`detail-card reveal reveal-delay-${i + 1}`}>
+            <div key={d.label} className={`detail-card reveal reveal-delay-${i + 1} reveal-zoom`}>
               <span className="detail-icon">{d.icon}</span>
               <span className="detail-label">{d.label}</span>
               <h3 className="detail-title">{d.title}</h3>

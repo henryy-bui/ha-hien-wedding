@@ -1,0 +1,16 @@
+@keyframes spark-float {
+  0%   { opacity: 0.85; transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { opacity: 0;    transform: translate(var(--dx), var(--dy)) scale(0.35) rotate(var(--rot)); }
+}
+
+.cursor-spark {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9990;
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: var(--gold);
+  user-select: none;
+  translate: -50% -50%;
+  animation: spark-float 0.7s ease-out forwards;
+  will-change: transform, opacity;
+}

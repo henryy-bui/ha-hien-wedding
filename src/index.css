@@ -63,13 +63,25 @@ button { cursor: pointer; font-family: var(--font-body); }
   transform: translateY(36px);
   transition: opacity 0.75s ease, transform 0.75s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible { opacity: 1; transform: none; }
 .reveal-delay-1 { transition-delay: 0.10s; }
 .reveal-delay-2 { transition-delay: 0.20s; }
 .reveal-delay-3 { transition-delay: 0.30s; }
 .reveal-delay-4 { transition-delay: 0.40s; }
 .reveal-delay-5 { transition-delay: 0.50s; }
 .reveal-delay-6 { transition-delay: 0.60s; }
+
+/* ─── Entrance variants ──────────────────────────────────────── */
+.reveal.reveal-left  { transform: translateX(-52px); }
+.reveal.reveal-right { transform: translateX(52px); }
+.reveal.reveal-zoom  { transform: scale(0.86) translateY(12px); }
+.reveal.reveal-drop  { transform: translateY(-28px) scale(0.97); }
+.reveal.reveal-blur  {
+  transform: translateY(20px);
+  filter: blur(8px);
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+}
+.reveal.reveal-blur.visible { filter: none; }
 
 .section {
   padding: 100px 24px;

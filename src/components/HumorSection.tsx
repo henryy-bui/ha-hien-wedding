@@ -51,7 +51,7 @@ export default function HumorSection() {
 
         <div className="humor-grid">
           {RULES.map((r, i) => (
-            <div key={r.rule} className={`humor-card reveal reveal-delay-${(i % 3) + 1}`}>
+            <div key={r.rule} className={`humor-card reveal reveal-delay-${(i % 3) + 1} reveal-zoom`}>
               <span className="humor-emoji">{r.emoji}</span>
               <h3 className="humor-rule">{r.rule}</h3>
               <p className="humor-note">{r.note}</p>
