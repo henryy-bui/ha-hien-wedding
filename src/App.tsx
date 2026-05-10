@@ -16,7 +16,7 @@ import Gallery from "./components/Gallery";
 import RSVP from "./components/RSVP";
 import Footer from "./components/Footer";
 import "./App.css";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
