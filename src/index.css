@@ -32,6 +32,39 @@
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ─── Theme palettes ─────────────────────────────────────────────
+   Each [data-theme] override only the gold/rose/cream triad. Text,
+   charcoal, white, fonts, radii etc. inherit from :root. The default
+   (Ivory & Gold) ships with no data-theme attribute.
+*/
+[data-theme="sage"] {
+  --gold: #9caf88;
+  --gold-light: #c9d4be;
+  --gold-faint: rgba(156, 175, 136, 0.14);
+  --rose: #d8a7a4;
+  --rose-light: #ebcfcc;
+  --cream: #f7f4ee;
+  --cream-dark: #ebe5d6;
+  --shadow-hover: 0 16px 48px rgba(156, 175, 136, 0.28);
+}
+
+[data-theme="dusk"] {
+  --gold: #b07b5e;
+  --gold-light: #d8b39c;
+  --gold-faint: rgba(176, 123, 94, 0.16);
+  --rose: #8e4a5d;
+  --rose-light: #c89aa7;
+  --cream: #fbf2ea;
+  --cream-dark: #f3dccb;
+  --shadow-hover: 0 16px 48px rgba(142, 74, 93, 0.25);
+}
+
+/* Smooth crossfade when the user switches themes. Fast enough not to
+   feel laggy, slow enough that swatch + body shift look intentional. */
+body {
+  transition: background-color 0.45s ease;
+}
+
 html {
   scroll-behavior: smooth;
 }

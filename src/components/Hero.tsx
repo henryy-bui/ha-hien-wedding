@@ -111,9 +111,9 @@ export default function Hero() {
         <p className="hero-pre">{sideData.invitationFrom}</p>
 
         <div className="hero-names">
-          <p className="hero-name-left">Văn Hà</p>
+          <p className="hero-name-left">{sideData.groomBrideNames[0]}</p>
           <p className="hero-ampersand">&amp;</p>
-          <p className="hero-name-right">Thanh Hiền</p>
+          <p className="hero-name-right">{sideData.groomBrideNames[1]}</p>
         </div>
 
         <div className="hero-date-row">

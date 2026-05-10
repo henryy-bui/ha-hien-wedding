@@ -26,6 +26,7 @@ export interface SideData {
   /** Chronological events this side's guests are invited to. */
   events: EventData[];
   venue: VenueData;
+  groomBrideNames: string[];
 }
 
 export const SIDE_CONFIG: Record<Side, SideData> = {
@@ -53,6 +54,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
       coords: "21.2409791,106.5760376",
       details: [],
     },
+    groomBrideNames: ["Văn Hà", "Thanh Hiền"],
   },
   bride: {
     invitationFrom: "LỄ VU QUY",
@@ -78,6 +80,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
       coords: "20.61588, 106.1453",
       details: [],
     },
+    groomBrideNames: ["Thanh Hiền", "Văn Hà"],
   },
   combined: {
     invitationFrom: "Trân trọng kính mời bạn đến tham dự lễ cưới của chúng tôi",
@@ -103,5 +106,6 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
       coords: "21.2409791,106.5760376",
       details: [],
     },
+    groomBrideNames: ["Văn Hà", "Thanh Hiền"],
   },
 };
