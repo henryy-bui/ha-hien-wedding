@@ -47,11 +47,11 @@ export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
   const petalsRef = useRef<HTMLDivElement>(null);
   const sideData = SIDE_CONFIG[useSide()];
-  const [tagline, twDone] = useTypewriter(
-    "Hành trình đẹp nhất bắt đầu từ đây ✨",
-    55,
-    1400
-  );
+  // const [tagline, twDone] = useTypewriter(
+  //   "Hành trình đẹp nhất bắt đầu từ đây ✨",
+  //   55,
+  //   1400
+  // );
 
   useEffect(() => {
     const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
@@ -122,7 +122,7 @@ export default function Hero() {
           <span className="hero-rule" />
         </div>
 
-        <p className="hero-tagline">
+        {/* <p className="hero-tagline">
           {tagline}
           <span
             className={`hero-cursor${twDone ? " blink" : ""}`}
@@ -130,7 +130,7 @@ export default function Hero() {
           >
             |
           </span>
-        </p>
+        </p> */}
 
         <div
           className="countdown"

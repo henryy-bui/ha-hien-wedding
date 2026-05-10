@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Generate public/og-image.jpg (1200×630) for social link previews.
+ * Generate public/og-image.png (1200×630) for social link previews.
  *
  * Layout: bride and groom portraits as gold-ringed circles flanking
  * the names, with date and "Save the Date" caption below, on a cream
@@ -16,7 +16,7 @@ import sharp from "sharp";
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
 const BRIDE = ROOT + "public/images/bride.jpg";
 const GROOM = ROOT + "public/images/groom.jpg";
-const OUT = ROOT + "public/og-image.jpg";
+const OUT = ROOT + "public/og-image.png";
 
 const W = 1200;
 const H = 630;
@@ -42,7 +42,9 @@ async function circlePortrait(srcPath, size) {
   const ringedSize = size + RING * 2;
   const mask = Buffer.from(
     `<svg width="${ringedSize}" height="${ringedSize}" xmlns="http://www.w3.org/2000/svg">
-       <circle cx="${ringedSize / 2}" cy="${ringedSize / 2}" r="${size / 2}" fill="white"/>
+       <circle cx="${ringedSize / 2}" cy="${ringedSize / 2}" r="${
+      size / 2
+    }" fill="white"/>
      </svg>`
   );
   const ring = Buffer.from(

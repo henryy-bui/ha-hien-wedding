@@ -127,10 +127,8 @@ export default function RSVP() {
     <section className="rsvp-bg" ref={sectionRef} id="rsvp" data-wipe="left">
       <div className="section" style={{ textAlign: "center" }}>
         <div className="reveal">
-          <span className="section-label">Lời Chúc Của Bạn</span>
-          <h2 className="section-title">
-            Gửi Lời Chúc Đến Cô Dâu &amp; Chú Rể
-          </h2>
+          <span className="section-label">Lời Chúc Của Bạn Đến</span>
+          <h2 className="section-title">Cô Dâu &amp; Chú Rể</h2>
           <p className="rsvp-sub reveal reveal-delay-1">
             Một lời chúc nhỏ từ bạn sẽ là món quà lớn nhất cho ngày trọng đại
             của chúng mình.
@@ -143,7 +141,7 @@ export default function RSVP() {
             <div className="rsvp-success">
               <span className="rsvp-success-icon">💌</span>
               <h3>Cảm ơn {form.name}!</h3>
-              <p>Lời chúc của bạn đã được gửi đến Hà &amp; Hiền ❤️</p>
+              <p>Lời chúc của bạn đã được gửi đến Cô Dâu &amp; Chú Rể ❤️</p>
             </div>
           ) : (
             <form
@@ -159,7 +157,7 @@ export default function RSVP() {
                 <input
                   id="rsvp-name"
                   type="text"
-                  placeholder="Nguyễn Văn A"
+                  placeholder="Nhập họ và tên của bạn..."
                   autoComplete="name"
                   value={form.name}
                   onChange={(e) =>
@@ -178,7 +176,7 @@ export default function RSVP() {
                   id="rsvp-note"
                   rows={4}
                   maxLength={500}
-                  placeholder="Gửi lời chúc đến cô dâu &amp; chú rể..."
+                  placeholder="Viết lời chúc của bạn..."
                   value={form.note}
                   onChange={(e) =>
                     setForm((f) => ({ ...f, note: e.target.value }))

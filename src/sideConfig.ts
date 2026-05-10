@@ -16,7 +16,7 @@ export interface EventData {
   weekday: string;
   /** Vietnamese long form for the calendar caption (e.g., "Thứ Bảy, 30.05.2026"). */
   dateLabel: string;
-  /** Start time as displayed (e.g., "15:00 chiều"). */
+  /** Start time as displayed (e.g., "16:00 chiều"). */
   time: string;
 }
 
@@ -50,7 +50,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
     ],
     venue: {
       name: "Tư gia Nhà Trai",
-      address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh",
+      address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh (Bắc Giang cũ)",
       coords: "21.2409791,106.5760376",
       details: [],
     },
@@ -64,7 +64,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
         day: 30,
         weekday: "T7",
         dateLabel: "Thứ Bảy, 30.05.2026",
-        time: "15:00 chiều",
+        time: "16:00 chiều",
       },
       {
         name: "Lễ Vu Quy",
@@ -76,7 +76,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
     ],
     venue: {
       name: "Tư gia Nhà Gái",
-      address: "Thị Trấn Hưng Nhân, Hưng Hà, Thái Bình",
+      address: "Thị Trấn Hưng Nhân, Hưng Hà, Hưng Yên (Thái Bình cũ)",
       coords: "20.61588, 106.1453",
       details: [],
     },

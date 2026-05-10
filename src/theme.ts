@@ -15,7 +15,7 @@ export const THEMES: readonly Theme[] = [
   { id: "crimson", name: "Hỉ Đỏ", swatch: ["#b8323a", "#d4a64a", "#f5d9c5"] },
 ] as const;
 
-export const DEFAULT_THEME: ThemeId = "crimson";
+export const DEFAULT_THEME: ThemeId = "sage";
 export const STORAGE_KEY = "wedding:theme";
 
 const VALID = new Set<ThemeId>(THEMES.map((t) => t.id));

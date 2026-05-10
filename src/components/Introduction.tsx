@@ -36,7 +36,7 @@ const PEOPLE: Person[] = [
       "linear-gradient(155deg, var(--gold) 0%, var(--gold-light) 55%, var(--cream-dark) 100%)",
     photoUrl: "/images/groom.jpg",
     accent: "gold",
-    bio: "Một chàng trai chân thành với nụ cười ấm áp và niềm tin vững chắc rằng tình yêu là hành trình đáng trân trọng nhất hai người cùng đi.",
+    bio: "Là một lập trình viên, anh không chỉ viết code để xây dựng tương lai mà còn 'debug' mọi khó khăn để xây dựng một tình yêu vững bền.",
     facts: [],
     parents: {
       father: "Ông Bùi Văn Sơn",
@@ -53,7 +53,7 @@ const PEOPLE: Person[] = [
       "linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 55%, var(--cream) 100%)",
     photoUrl: "/images/bride.jpg",
     accent: "rose",
-    bio: "Một cô gái dịu dàng với đôi mắt biết cười và tâm hồn lãng mạn — luôn tin rằng những điều nhỏ bé tạo nên hạnh phúc lớn lao nhất.",
+    bio: "Là một cô gái tinh tế và sâu sắc, cô ấy không chỉ tìm ra 'lỗi' trong phần mềm mà còn tìm thấy và sửa chữa mọi 'lỗi' trong trái tim người bạn đời của mình.",
     facts: [],
     parents: {
       father: "",
@@ -98,10 +98,7 @@ export default function Introduction() {
                     <span className="intro-numeral" aria-hidden="true">
                       {p.numeral}
                     </span>
-                    <div
-                      className="intro-photo"
-                      style={{ background: p.photoBg }}
-                    >
+                    <div className="intro-photo">
                       <img
                         src={p.photoUrl}
                         alt={p.name}

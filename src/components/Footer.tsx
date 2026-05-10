@@ -16,7 +16,7 @@ export default function Footer() {
         <p className="footer-names">Văn Hà &amp; Thanh Hiền</p>
         <p className="footer-date">31 · 05 · 2026</p>
         <p className="footer-credit">
-          Được tạo với ❤️ cho ngày trọng đại của chúng mình
+          Copyright © 2026 by Văn Hà &amp; Thanh Hiền.
         </p>
       </div>
     </footer>

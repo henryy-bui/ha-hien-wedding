@@ -106,7 +106,7 @@
   content: "";
   position: absolute;
   inset: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  /* border: 1px solid rgba(255, 255, 255, 0.55); */
   border-radius: 3px;
   pointer-events: none;
   z-index: 10000000;
@@ -189,6 +189,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 16px;
   width: 100%;
 }
@@ -372,12 +373,13 @@
   line-height: 1;
   background: var(--cream);
   border: 1px solid rgba(var(--gold-rgb), 0.5);
-  box-shadow: 0 0 0 4px var(--white-glass), 0 8px 22px rgba(var(--gold-rgb), 0.18);
+  box-shadow: 0 0 0 4px var(--white-glass),
+    0 8px 22px rgba(var(--gold-rgb), 0.18);
   position: relative;
   z-index: 1;
 }
 
-/* ─── Tablet (≤ 880px): stack into a single column ─────────── */
+/* ─── Tablet/Mobile (≤ 880px): zigzag horizontal layout ─────── */
 @media (max-width: 880px) {
   .intro-spread {
     grid-template-areas:
@@ -385,27 +387,90 @@
       "spine"
       "right";
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
     justify-items: center;
   }
 
   .intro-page,
   .intro-page-left,
   .intro-page-right {
-    justify-self: center;
-    max-width: 420px;
-    padding: 12px 16px;
+    justify-self: stretch;
+    max-width: 520px;
+    width: 100%;
+    padding: 12px 8px;
+    gap: 0;
+
+    /* Zigzag: photo + text/parents side-by-side */
+    display: grid;
+    grid-template-columns: minmax(120px, 38%) 1fr;
+    grid-template-areas:
+      "photo text"
+      "photo parents"
+      "photo parents"
+      "photo parents"
+      "photo parents";
+    column-gap: clamp(14px, 3vw, 22px);
+    row-gap: 12px;
+    align-items: start;
+    text-align: left;
+  }
+
+  /* Bride: flip — text/parents left, photo right */
+  .intro-page-right {
+    grid-template-columns: 1fr minmax(120px, 38%);
+    grid-template-areas:
+      "text photo"
+      "parents photo"
+      "parents photo"
+      "parents photo"
+      "parents photo";
+  }
+
+  /* Flatten the photo+text wrapper so its children join the page grid */
+  .intro-page-content {
+    display: contents;
   }
 
   .intro-side-label {
     display: none;
   }
 
-  .intro-page-right .intro-numeral {
-    left: auto;
-    right: -6px;
+  .intro-photo-frame {
+    grid-area: photo;
+    gap: 10px;
+    align-self: start;
   }
 
+  .intro-photo {
+    max-width: 100%;
+  }
+
+  .intro-text {
+    grid-area: text;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .intro-page-right .intro-text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro-parents {
+    grid-area: parents;
+    text-align: center;
+  }
+
+  .intro-page-right .intro-parents {
+    text-align: center;
+  }
+
+  .intro-name {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+  }
+
+  /* Spine: horizontal divider + medallion between the two cards */
   .intro-spine {
     align-self: auto;
     width: 100%;
@@ -439,29 +504,33 @@
 
 /* ─── Phone (≤ 480px): tighten further ─────────────────────── */
 @media (max-width: 480px) {
-  .intro-page {
-    padding: 8px 8px;
-  }
-  .intro-photo {
-    max-width: 180px;
+  .intro-page,
+  .intro-page-left,
+  .intro-page-right {
+    padding: 8px 4px;
+    column-gap: 14px;
+    row-gap: 8px;
   }
   .intro-bio {
     font-size: 0.92rem;
     line-height: 1.72;
   }
   .intro-numeral {
-    font-size: 3.6rem;
+    font-size: 3rem;
     opacity: 0.1;
   }
-  .intro-parents {
-    margin-top: 18px;
-  }
   .intro-parent {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
   .intro-photo-caption {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+  }
+  .intro-parents-label {
+    font-size: 0.62rem;
     letter-spacing: 0.24em;
+    gap: 8px;
+    margin-bottom: 6px;
   }
   .intro-spine-amp {
     width: 52px;
