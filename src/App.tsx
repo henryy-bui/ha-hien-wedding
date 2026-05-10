@@ -16,6 +16,7 @@ import Gallery from "./components/Gallery";
 import RSVP from "./components/RSVP";
 import Footer from "./components/Footer";
 import "./App.css";
+import { Analytics } from "@vercel/analytics/next";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +43,7 @@ function App() {
           <Footer />
         </>
       )}
+      <Analytics />
     </SideProvider>
   );
 }
