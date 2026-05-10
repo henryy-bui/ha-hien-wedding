@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useTypewriter } from "../hooks/useTypewriter";
+// import { useTypewriter } from "../hooks/useTypewriter";
 import { useSide } from "../sideContext";
 import { SIDE_CONFIG } from "../sideConfig";
 import "./Hero.css";
