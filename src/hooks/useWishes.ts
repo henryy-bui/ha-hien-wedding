@@ -26,6 +26,13 @@ const ENDPOINT = import.meta.env.VITE_RSVP_ENDPOINT;
 const MOCK = import.meta.env.VITE_RSVP_MOCK === true;
 const POLL_MS = 60_000; // refetch every 60 s so live submissions appear during the day
 
+/**
+ * Window event dispatched by the RSVP form after a successful submission.
+ * Any mounted `useWishes()` instance listens and refetches immediately so
+ * the new wish shows up in the overlay without waiting for the next poll.
+ */
+export const WISH_SUBMITTED_EVENT = "wedding:wish-submitted";
+
 // Sample wishes used when VITE_RSVP_MOCK=1 — lets the overlay UI be previewed
 // without standing up the Apps Script backend. Cover both sides, both
 // attending statuses, and varied note lengths so the layout is exercised.
@@ -77,7 +84,7 @@ export function useWishes(): State {
     if (MOCK) return; // Mock mode is static — skip the network entirely.
     if (!ENDPOINT) return;
 
-    const controller = new AbortController();
+    let controller = new AbortController();
     let timer: ReturnType<typeof setTimeout> | null = null;
     let cancelled = false;
 
@@ -96,16 +103,31 @@ export function useWishes(): State {
           return;
         setState((prev) => ({ ...prev, loading: false, error: true }));
       } finally {
-        if (!cancelled) timer = setTimeout(tick, POLL_MS);
+        // Re-arm the poll. Clear any pending timer first so an event-triggered
+        // refetch doesn't race with the interval and leak duplicate timers.
+        if (!cancelled) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(tick, POLL_MS);
+        }
       }
     };
 
+    // RSVP form fires this after a successful submit. Abort the in-flight
+    // request (if any) so the immediate refetch wins, then refetch.
+    const onWishSubmitted = () => {
+      controller.abort();
+      controller = new AbortController();
+      void tick();
+    };
+
     tick();
+    window.addEventListener(WISH_SUBMITTED_EVENT, onWishSubmitted);
 
     return () => {
       cancelled = true;
       controller.abort();
       if (timer) clearTimeout(timer);
+      window.removeEventListener(WISH_SUBMITTED_EVENT, onWishSubmitted);
     };
   }, []);
 

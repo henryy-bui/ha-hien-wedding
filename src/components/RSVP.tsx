@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import confetti from 'canvas-confetti'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { WISH_SUBMITTED_EVENT } from '../hooks/useWishes'
 import { useSide } from '../sideContext'
 import './RSVP.css'
 
@@ -73,6 +74,9 @@ export default function RSVP() {
       }
       setStatus('success')
       fireConfetti()
+      // Tell the live wishes overlay to refetch immediately instead of
+      // waiting for the next 60 s poll tick.
+      window.dispatchEvent(new Event(WISH_SUBMITTED_EVENT))
     } catch (err) {
       console.error('[RSVP] submit failed', err)
       setStatus('error')

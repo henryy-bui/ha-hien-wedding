@@ -1,18 +1,20 @@
+/* ─── Floating overlay (expanded) ───────────────────────────── */
 .wishes-overlay {
   position: fixed;
   bottom: 22px;
-  right: 30px;
+  right: 22px;
   z-index: 55;
-  width: 280px;
-  max-height: 380px;
+  width: 320px;
+  max-height: 350px;
   display: flex;
   flex-direction: column;
   background: var(--white-glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--gold-light);
-  border-radius: 14px;
-  box-shadow: 0 18px 44px rgba(44, 44, 44, 0.14);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(var(--gold-rgb), 0.28);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(44, 44, 44, 0.18),
+    0 4px 12px rgba(var(--gold-rgb), 0.08);
   overflow: hidden;
   font-family: var(--font-body);
   animation: wishes-overlay-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -29,17 +31,23 @@
   }
 }
 
+/* ─── Header ────────────────────────────────────────────────── */
 .wishes-overlay-head {
+  position: relative;
+  padding: 14px 14px 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--gold-rgb), 0.14),
+    rgba(var(--rose-rgb), 0.1)
+  );
+  border-bottom: 1px solid rgba(var(--gold-rgb), 0.18);
+}
+
+.wishes-overlay-title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--gold-faint);
-  background: linear-gradient(
-    135deg,
-    var(--gold-faint),
-    rgba(var(--rose-rgb), 0.1)
-  );
+  gap: 8px;
 }
 
 .wishes-overlay-title {
@@ -48,21 +56,62 @@
   gap: 8px;
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   color: var(--charcoal);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
-.wishes-overlay-icon {
-  font-style: normal;
-  font-size: 1rem;
-}
-
-.wishes-overlay-close {
-  width: 24px;
-  height: 24px;
+.wishes-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  border: none;
+  background: var(--rose);
+  box-shadow: 0 0 0 0 rgba(var(--rose-rgb), 0.55);
+  animation: wishes-live-pulse 2.2s cubic-bezier(0.66, 0, 0, 1) infinite;
+  flex-shrink: 0;
+}
+
+@keyframes wishes-live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--rose-rgb), 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(var(--rose-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--rose-rgb), 0);
+  }
+}
+
+.wishes-overlay-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(var(--gold-rgb), 0.18);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-left: 2px;
+}
+
+.wishes-overlay-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wishes-overlay-action {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid transparent;
   background: transparent;
   color: var(--text-muted);
   font-size: 1.2rem;
@@ -70,12 +119,58 @@
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.wishes-overlay-close:hover {
-  background: var(--gold-faint);
+.wishes-overlay-action:hover {
+  background: rgba(var(--gold-rgb), 0.14);
   color: var(--charcoal);
+  border-color: rgba(var(--gold-rgb), 0.3);
+}
+
+.wishes-overlay-action:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ─── Filter pills (segmented) ──────────────────────────────── */
+.wishes-filter-row {
+  display: flex;
+  gap: 2px;
+  margin-top: 10px;
+  padding: 3px;
+  background: rgba(var(--gold-rgb), 0.1);
+  border-radius: 999px;
+}
+
+.wishes-filter-pill {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wishes-filter-pill.is-active {
+  background: var(--white);
+  color: var(--charcoal);
+  box-shadow: 0 1px 3px rgba(44, 44, 44, 0.08);
+  font-weight: 500;
+}
+
+.wishes-filter-pill:hover:not(.is-active) {
+  color: var(--charcoal);
+}
+
+.wishes-filter-pill:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
 }
 
 /* ─── Scrolling viewport ────────────────────────────────────── */
@@ -84,8 +179,7 @@
   flex: 1;
   overflow: hidden;
   padding: 8px 0;
-  /* Soft fade at the top + bottom so wishes appear/disappear gracefully
-     instead of clipping at hard edges. */
+  /* Soft fade at top + bottom so scrolling cards appear/disappear gracefully. */
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
@@ -105,13 +199,16 @@
 .wishes-track {
   display: flex;
   flex-direction: column;
-  /* duration is set inline based on wish count */
+}
+
+.wishes-track.is-scrolling {
   animation-name: wishes-scroll;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-.wishes-overlay:hover .wishes-track {
+.wishes-overlay:hover .wishes-track.is-scrolling,
+.wishes-track.is-scrolling:focus-within {
   animation-play-state: paused;
 }
 
@@ -136,21 +233,52 @@
 
 /* ─── Wish card ─────────────────────────────────────────────── */
 .wish-card {
+  position: relative;
   background: var(--white);
-  border: 1px solid var(--gold-faint);
+  border: 1px solid rgba(var(--gold-rgb), 0.16);
   border-left: 3px solid var(--gold);
   border-radius: 10px;
-  padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(44, 44, 44, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.wish-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(var(--gold-rgb), 0.16);
+  border-color: rgba(var(--gold-rgb), 0.4);
 }
 
 .wish-card--bride {
   border-left-color: var(--rose);
 }
 
+.wish-card--bride:hover {
+  box-shadow: 0 8px 18px rgba(var(--rose-rgb), 0.2);
+  border-color: rgba(var(--rose-rgb), 0.4);
+}
+
+.wish-card-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.wish-card-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+
 .wish-meta {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 8px;
   margin-bottom: 4px;
@@ -159,9 +287,19 @@
 .wish-name {
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--charcoal);
   letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+.wish-time {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
 }
 
 .wish-note {
@@ -169,12 +307,22 @@
   font-size: 0.84rem;
   line-height: 1.55;
   color: var(--text);
-  /* Long wishes get clamped so each card stays a similar height. */
   display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  white-space: pre-wrap;
+}
+
+/* ─── Empty state ───────────────────────────────────────────── */
+.wishes-empty {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: var(--font-heading);
 }
 
 /* ─── Collapsed chip ────────────────────────────────────────── */
@@ -188,13 +336,13 @@
   gap: 8px;
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid rgba(var(--gold-rgb), 0.3);
   background: var(--white-glass);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 8px 24px rgba(44, 44, 44, 0.12);
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--charcoal);
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition),
@@ -207,42 +355,298 @@
   box-shadow: var(--shadow-hover);
 }
 
+.wishes-chip:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 .wishes-chip-icon {
   font-size: 1rem;
+  line-height: 1;
+}
+
+.wishes-chip-label {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  letter-spacing: 0.01em;
 }
 
 .wishes-chip-count {
-  font-weight: 600;
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(var(--gold-rgb), 0.18);
   color: var(--gold);
+  font-weight: 600;
+  font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
+}
+
+.wishes-chip--pulse {
+  animation: wishes-chip-pulse 0.7s ease-in-out 0s 3;
+}
+
+@keyframes wishes-chip-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 8px 24px rgba(44, 44, 44, 0.12);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 14px 32px rgba(var(--rose-rgb), 0.32);
+  }
+}
+
+/* ─── Modal (Sổ Lưu Bút) ────────────────────────────────────── */
+.wishes-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(44, 44, 44, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: wishes-modal-fade 0.3s ease;
+}
+
+@keyframes wishes-modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wishes-modal {
+  width: min(560px, 100%);
+  max-height: min(82vh, 720px);
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  border: 1px solid rgba(var(--gold-rgb), 0.3);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px rgba(44, 44, 44, 0.3);
+  overflow: hidden;
+  animation: wishes-modal-slide 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wishes-modal-slide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wishes-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 24px 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--gold-rgb), 0.13),
+    rgba(var(--rose-rgb), 0.1)
+  );
+  border-bottom: 1px solid rgba(var(--gold-rgb), 0.18);
+  flex-shrink: 0;
+}
+
+.wishes-modal-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 6px;
+}
+
+.wishes-modal-title {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.wishes-modal-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.wishes-modal-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--gold-rgb), 0.25);
+  background: var(--white);
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.wishes-modal-close:hover {
+  background: rgba(var(--gold-rgb), 0.12);
+  color: var(--charcoal);
+  border-color: var(--gold);
+  transform: rotate(90deg);
+}
+
+.wishes-modal-close:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Modal-sized filter pills sit slightly inset from the modal padding. */
+.wishes-filter-row--md {
+  margin: 16px 24px 0;
+  padding: 4px;
+  gap: 4px;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.wishes-filter-row--md .wishes-filter-pill {
+  flex: 0 0 auto;
+  padding: 6px 18px;
+  font-size: 0.78rem;
+}
+
+.wishes-modal-list {
+  list-style: none;
+  margin: 0;
+  padding: 18px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.wishes-modal-list li {
+  height: 100px;
+}
+
+.wish-card--modal {
+  cursor: default;
+}
+
+.wish-card--modal:hover {
+  transform: none;
+  box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.12);
+}
+
+.wish-card--modal.wish-card--bride:hover {
+  box-shadow: 0 4px 14px rgba(var(--rose-rgb), 0.16);
+}
+
+.wish-card-modal-inner {
+  padding: 14px 16px;
+}
+
+.wish-note--full {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.wishes-empty--modal {
+  padding: 60px 20px;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
 }
 
 /* ─── Mobile ────────────────────────────────────────────────── */
 @media (max-width: 540px) {
   .wishes-overlay {
     bottom: 14px;
-    right: 5px;
+    right: 14px;
     width: calc(100vw - 28px);
-    max-width: 320px;
-    max-height: 320px;
+    max-width: 340px;
+    max-height: 60vh;
   }
   .wishes-chip {
     bottom: 14px;
     right: 14px;
+    padding: 9px 14px;
   }
   .wish-note {
     -webkit-line-clamp: 3;
     line-clamp: 3;
   }
+  .wishes-modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+  .wishes-modal {
+    max-height: 88vh;
+    width: 100%;
+  }
+  .wishes-modal-head {
+    padding: 18px 18px 14px;
+  }
+  .wishes-modal-list {
+    padding: 14px 18px 20px;
+  }
+  .wishes-filter-row--md {
+    margin: 12px 18px 0;
+    width: calc(100% - 36px);
+  }
+  .wishes-filter-row--md .wishes-filter-pill {
+    flex: 1;
+  }
+  .wishes-modal-title {
+    font-size: 1.3rem;
+  }
 }
 
+/* ─── Reduced motion ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .wishes-track {
-    /* Stop the scroll under reduced-motion preferences — the user can still
-       see the first batch and pause/resume by hovering. */
+  .wishes-track.is-scrolling {
     animation: none;
   }
-  .wishes-overlay {
+  .wishes-overlay,
+  .wishes-modal,
+  .wishes-modal-backdrop,
+  .wishes-chip--pulse {
     animation: none;
+  }
+  .wishes-live-dot {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(var(--rose-rgb), 0.2);
+  }
+  .wishes-modal-close:hover {
+    transform: none;
   }
 }
