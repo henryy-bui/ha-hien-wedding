@@ -1,0 +1,256 @@
+.wedding-calendar {
+  background: var(--white);
+  border: 1px solid var(--gold-light);
+  border-radius: var(--radius);
+  padding: 36px 32px 32px;
+  max-width: 460px;
+  margin: 0 auto 0px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.wedding-calendar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 0% 0%,
+      var(--gold-faint) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(232, 165, 152, 0.1) 0%,
+      transparent 55%
+    );
+  pointer-events: none;
+}
+
+.wc-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.wc-month {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+.wc-dot {
+  color: var(--gold);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.wc-year {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-top: 4px;
+}
+
+.wc-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  position: relative;
+}
+
+.wc-weekdays {
+  margin-bottom: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-faint);
+}
+
+.wc-weekday {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+}
+
+.wc-day {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  border-radius: 50%;
+  transition: color var(--transition);
+}
+
+.wc-day-num {
+  position: relative;
+  z-index: 2;
+}
+
+.wc-empty {
+  visibility: hidden;
+}
+
+.wc-day-wedding {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.wc-day-wedding .wc-day-num {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  /* Heart's optical center sits slightly above geometric center — nudge the number up to match */
+  transform: translateY(-6%);
+}
+
+.wc-day-heart {
+  position: absolute;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
+  z-index: 1;
+  filter: drop-shadow(0 6px 14px rgba(232, 165, 152, 0.5));
+  transform-origin: 50% 60%;
+  animation: wc-heartbeat 1.8s ease-in-out infinite;
+}
+
+/* Offset successive hearts so multi-day highlights don't pulse in lockstep. */
+.wc-day-wedding ~ .wc-day-wedding .wc-day-heart {
+  animation-delay: -0.6s;
+}
+
+.wc-heart-stop-start {
+  stop-color: var(--gold);
+}
+.wc-heart-stop-end {
+  stop-color: var(--rose);
+}
+
+@keyframes wc-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  18% {
+    transform: scale(1.08);
+  }
+  32% {
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  64% {
+    transform: scale(1);
+  }
+}
+
+.wc-schedule {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: center;
+}
+
+.wc-schedule-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.wc-schedule-date {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.wc-schedule-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  align-items: center;
+}
+
+.wc-schedule-event {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.wc-schedule-event-name {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--charcoal);
+}
+
+.wc-schedule-event-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.65;
+}
+
+.wc-schedule-event-time {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .wedding-calendar {
+    padding: 28px 20px 24px;
+  }
+  .wc-month {
+    font-size: 1.35rem;
+  }
+  .wc-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+  }
+  .wc-day {
+    font-size: 0.88rem;
+  }
+  .wc-day-wedding .wc-day-num {
+    font-size: 0.98rem;
+  }
+  .wc-weekday {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+  .wc-grid {
+    gap: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-day-heart {
+    animation: none;
+  }
+}

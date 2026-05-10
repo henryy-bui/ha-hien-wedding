@@ -18,22 +18,22 @@ const PHOTOS: LightboxPhoto[] = [
     aspectRatio: "2 / 3",
   },
   {
-    bg: "/images/optimized/akkha02460.jpg",
+    bg: "/images/optimized/akkha02464.jpg",
     label: "Khoảnh khắc 3",
     aspectRatio: "2 / 3",
   },
   {
-    bg: "/images/optimized/akkha02516.jpg",
+    bg: "/images/optimized/akkha02048.jpg",
     label: "Khoảnh khắc 4",
     aspectRatio: "2 / 3",
   },
   {
-    bg: "/images/optimized/akkha02048.jpg",
+    bg: "/images/optimized/akkha02460.jpg",
     label: "Khoảnh khắc 5",
     aspectRatio: "2 / 3",
   },
   {
-    bg: "/images/optimized/akkha02464.jpg",
+    bg: "/images/optimized/akkha02516.jpg",
     label: "Khoảnh khắc 6",
     aspectRatio: "2 / 3",
   },

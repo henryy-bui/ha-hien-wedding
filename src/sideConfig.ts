@@ -7,22 +7,46 @@ export interface VenueData {
   details: string[];
 }
 
+export interface EventData {
+  /** Display name shown in the details card (e.g., "Lễ Thành Hôn", "Tiệc Cưới"). */
+  name: string;
+  /** Day of month in May 2026 — used by WeddingCalendar to highlight cells. */
+  day: number;
+  /** Short weekday label rendered next to the time (e.g., "T7", "CN"). */
+  weekday: string;
+  /** Vietnamese long form for the calendar caption (e.g., "Thứ Bảy, 30.05.2026"). */
+  dateLabel: string;
+  /** Start time as displayed (e.g., "15:00 chiều"). */
+  time: string;
+}
+
 export interface SideData {
-  /** First line of Hero — e.g. "Nhà Trai trân trọng kính mời..." */
+  /** First line of Hero — e.g. "LỄ THÀNH HÔN" / "LỄ VU QUY" */
   invitationFrom: string;
-  /** Ceremony name shown in WeddingDetails — "Lễ Thành Hôn" / "Lễ Vu Quy" / "Lễ Thành Hôn" */
-  eventName: string;
-  ceremonyTime: string;
-  receptionTime: string;
+  /** Chronological events this side's guests are invited to. */
+  events: EventData[];
   venue: VenueData;
 }
 
 export const SIDE_CONFIG: Record<Side, SideData> = {
   groom: {
     invitationFrom: "LỄ THÀNH HÔN",
-    eventName: "Lễ Thành Hôn",
-    ceremonyTime: "11:00 sáng",
-    receptionTime: "11:30 sáng",
+    events: [
+      {
+        name: "Lễ Thành Hôn",
+        day: 31,
+        weekday: "CN",
+        dateLabel: "Chủ Nhật, 31.05.2026",
+        time: "11:00 sáng",
+      },
+      {
+        name: "Tiệc Mừng",
+        day: 31,
+        weekday: "CN",
+        dateLabel: "Chủ Nhật, 31.05.2026",
+        time: "11:30 sáng",
+      },
+    ],
     venue: {
       name: "Tư gia Nhà Trai",
       address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh",
@@ -32,9 +56,22 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
   },
   bride: {
     invitationFrom: "LỄ VU QUY",
-    eventName: "Lễ Vu Quy",
-    ceremonyTime: "8:00 sáng",
-    receptionTime: "10:00 sáng",
+    events: [
+      {
+        name: "Tiệc Cưới",
+        day: 30,
+        weekday: "T7",
+        dateLabel: "Thứ Bảy, 30.05.2026",
+        time: "15:00 chiều",
+      },
+      {
+        name: "Lễ Vu Quy",
+        day: 31,
+        weekday: "CN",
+        dateLabel: "Chủ Nhật, 31.05.2026",
+        time: "7:00 sáng",
+      },
+    ],
     venue: {
       name: "Tư gia Nhà Gái",
       address: "Thị Trấn Hưng Nhân, Hưng Hà, Thái Bình",
@@ -44,9 +81,22 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
   },
   combined: {
     invitationFrom: "Trân trọng kính mời bạn đến tham dự lễ cưới của chúng tôi",
-    eventName: "Lễ Thành Hôn",
-    ceremonyTime: "10:00 sáng",
-    receptionTime: "11:30 sáng",
+    events: [
+      {
+        name: "Lễ Thành Hôn",
+        day: 31,
+        weekday: "CN",
+        dateLabel: "Chủ Nhật, 31.05.2026",
+        time: "10:00 sáng",
+      },
+      {
+        name: "Tiệc Mừng",
+        day: 31,
+        weekday: "CN",
+        dateLabel: "Chủ Nhật, 31.05.2026",
+        time: "11:30 sáng",
+      },
+    ],
     venue: {
       name: "Tại gia đình chúng tôi",
       address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh",

@@ -61,21 +61,112 @@
   line-height: 1.6;
 }
 
+/* ─── Event times stripe ────────────────────────────────────── */
+.location-times {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(
+    135deg,
+    var(--gold-faint),
+    rgba(232, 165, 152, 0.12)
+  );
+  border: 1px solid var(--gold-light);
+  border-radius: 12px;
+}
+
+.location-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.location-time-day {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 92px;
+  justify-content: flex-end;
+}
+
+.location-time-weekday {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+}
+
+.location-time-date {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+.location-time-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--gold-light);
+}
+
+.location-time-list {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  min-width: 92px;
+  text-align: left;
+}
+
+/* ─── Action buttons ────────────────────────────────────────── */
+.location-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
 .location-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 28px;
-  margin-top: 12px;
-  background: linear-gradient(135deg, var(--gold), var(--rose));
-  color: var(--white);
+  padding: 12px 22px;
   border-radius: 8px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
-  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease,
+    background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.location-btn--primary {
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  color: var(--white);
+}
+
+.location-btn--ghost {
+  background: transparent;
+  color: var(--gold);
+  border-color: var(--gold-light);
+}
+
+.location-btn--ghost.is-copied {
+  background: var(--gold-faint);
+  color: var(--charcoal);
+  border-color: var(--gold);
 }
 
 .location-btn span {
@@ -83,13 +174,19 @@
 }
 
 @media (hover: hover) {
-  .location-btn:hover {
+  .location-btn--primary:hover {
     opacity: 0.92;
     transform: translateY(-2px);
     box-shadow: 0 10px 26px rgba(201, 169, 110, 0.4);
   }
-  .location-btn:hover span {
+  .location-btn--primary:hover span {
     transform: translateX(4px);
+  }
+  .location-btn--ghost:hover {
+    background: var(--gold-faint);
+    color: var(--charcoal);
+    border-color: var(--gold);
+    transform: translateY(-2px);
   }
 }
 
@@ -133,7 +230,7 @@
 
 @media (max-width: 480px) {
   .location-info {
-    padding: 24px 12px;
+    padding: 24px 16px;
   }
   .location-icon {
     font-size: 1.7rem;
@@ -141,10 +238,24 @@
   .location-address {
     font-size: 0.92rem;
   }
+  .location-times {
+    padding: 12px 14px;
+  }
+  .location-time-row {
+    font-size: 0.86rem;
+    gap: 10px;
+  }
+  .location-time-day {
+    min-width: 78px;
+  }
+  .location-actions {
+    width: 100%;
+    flex-direction: column;
+  }
   .location-btn {
     width: 100%;
     justify-content: center;
-    padding: 14px 20px;
+    padding: 13px 20px;
   }
   .location-map {
     min-height: 240px;

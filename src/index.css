@@ -171,7 +171,7 @@ button {
 }
 
 .section {
-  padding: clamp(56px, 9vw, 50px) clamp(18px, 4vw, 32px);
+  padding: clamp(35px, 9vw, 50px) clamp(18px, 4vw, 32px);
   max-width: 1100px;
   margin: 0 auto;
 }
