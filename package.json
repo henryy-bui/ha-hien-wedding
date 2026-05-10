@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "og:image": "node scripts/generate-og-image.mjs"
+    "og:image": "node scripts/generate-og-image-v2.mjs"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",
