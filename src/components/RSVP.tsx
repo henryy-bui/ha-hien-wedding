@@ -32,7 +32,11 @@ export default function RSVP() {
   }
 
   function fireConfetti() {
-    const colors = ['#C9A96E', '#E8A598', '#F5D5CF', '#FFF8F0', '#E8D5B0']
+    // Resolve theme tokens at burst time so confetti always matches the active palette.
+    const styles = getComputedStyle(document.documentElement)
+    const colors = ['--gold', '--rose', '--rose-light', '--cream', '--gold-light']
+      .map((token) => styles.getPropertyValue(token).trim())
+      .filter(Boolean)
     confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors })
     setTimeout(() => confetti({ particleCount: 60, angle: 60,  spread: 55, origin: { x: 0, y: 0.7 }, colors }), 300)
     setTimeout(() => confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors }), 500)

@@ -1,4 +1,4 @@
-export type ThemeId = 'ivory' | 'sage' | 'dusk'
+export type ThemeId = 'ivory' | 'sage' | 'dusk' | 'crimson'
 
 export interface Theme {
   id: ThemeId
@@ -9,9 +9,10 @@ export interface Theme {
 }
 
 export const THEMES: readonly Theme[] = [
-  { id: 'ivory', name: 'Vàng Kem',  swatch: ['#c9a96e', '#e8a598', '#fbe8d8'] },
-  { id: 'sage',  name: 'Xanh Sage', swatch: ['#9caf88', '#d8a7a4', '#ebe5d6'] },
-  { id: 'dusk',  name: 'Hoàng Hôn', swatch: ['#b07b5e', '#8e4a5d', '#f3dccb'] },
+  { id: 'ivory',   name: 'Vàng Kem', swatch: ['#c9a96e', '#e8a598', '#fbe8d8'] },
+  { id: 'sage',    name: 'Lá Trầu',  swatch: ['#6b8e5a', '#c2807a', '#e3dcc5'] },
+  { id: 'dusk',    name: 'Hoa Sen',  swatch: ['#d97287', '#d4a85c', '#f7e3df'] },
+  { id: 'crimson', name: 'Hỉ Đỏ',    swatch: ['#b8323a', '#d4a64a', '#f5d9c5'] },
 ] as const
 
 export const DEFAULT_THEME: ThemeId = 'ivory'

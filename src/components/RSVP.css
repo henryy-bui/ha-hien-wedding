@@ -58,7 +58,7 @@
 
 .form-group input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--gold-rgb), 0.15);
 }
 
 .form-group.has-error input { border-color: #c0392b; }
@@ -120,7 +120,7 @@
   .rsvp-btn:hover {
     opacity: 0.9;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(201, 169, 110, 0.4);
+    box-shadow: 0 8px 24px rgba(var(--gold-rgb), 0.4);
   }
 }
 

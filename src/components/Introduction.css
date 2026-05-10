@@ -116,14 +116,14 @@
   content: "";
   position: absolute;
   inset: -10px;
-  border: 1px solid rgba(201, 169, 110, 0.4);
+  border: 1px solid rgba(var(--gold-rgb), 0.4);
   border-radius: 9px;
   pointer-events: none;
   transition: border-color 0.5s ease;
 }
 
 .accent-rose .intro-photo::after {
-  border-color: rgba(232, 165, 152, 0.48);
+  border-color: rgba(var(--rose-rgb), 0.48);
 }
 
 @media (hover: hover) {
@@ -133,10 +133,10 @@
       0 6px 16px rgba(44, 44, 44, 0.08);
   }
   .intro-page:hover .intro-photo::after {
-    border-color: rgba(201, 169, 110, 0.7);
+    border-color: rgba(var(--gold-rgb), 0.7);
   }
   .accent-rose.intro-page:hover .intro-photo::after {
-    border-color: rgba(232, 165, 152, 0.75);
+    border-color: rgba(var(--rose-rgb), 0.75);
   }
 }
 
@@ -301,17 +301,17 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.45));
+  background: linear-gradient(90deg, transparent, rgba(var(--gold-rgb), 0.45));
 }
 .intro-parents-label::after {
-  background: linear-gradient(90deg, rgba(201, 169, 110, 0.45), transparent);
+  background: linear-gradient(90deg, rgba(var(--gold-rgb), 0.45), transparent);
 }
 
 .accent-rose .intro-parents-label::before {
-  background: linear-gradient(90deg, transparent, rgba(232, 165, 152, 0.55));
+  background: linear-gradient(90deg, transparent, rgba(var(--rose-rgb), 0.55));
 }
 .accent-rose .intro-parents-label::after {
-  background: linear-gradient(90deg, rgba(232, 165, 152, 0.55), transparent);
+  background: linear-gradient(90deg, rgba(var(--rose-rgb), 0.55), transparent);
 }
 
 .intro-parent {
@@ -341,7 +341,7 @@
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(201, 169, 110, 0.5),
+    rgba(var(--gold-rgb), 0.5),
     transparent
   );
   left: 50%;
@@ -371,8 +371,8 @@
   color: var(--gold);
   line-height: 1;
   background: var(--cream);
-  border: 1px solid rgba(201, 169, 110, 0.5);
-  box-shadow: 0 0 0 4px var(--white-glass), 0 8px 22px rgba(201, 169, 110, 0.18);
+  border: 1px solid rgba(var(--gold-rgb), 0.5);
+  box-shadow: 0 0 0 4px var(--white-glass), 0 8px 22px rgba(var(--gold-rgb), 0.18);
   position: relative;
   z-index: 1;
 }
@@ -424,7 +424,7 @@
     background: linear-gradient(
       to right,
       transparent,
-      rgba(201, 169, 110, 0.5),
+      rgba(var(--gold-rgb), 0.5),
       transparent
     );
   }

@@ -58,7 +58,7 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(201, 169, 110, 0.25);
+    0 0 0 1px rgba(var(--gold-rgb), 0.25);
 }
 
 .lightbox-caption {
@@ -89,8 +89,8 @@
 .lightbox-close,
 .lightbox-nav {
   position: absolute;
-  background: rgba(255, 248, 240, 0.08);
-  border: 1px solid rgba(201, 169, 110, 0.4);
+  background: rgba(var(--cream-rgb), 0.08);
+  border: 1px solid rgba(var(--gold-rgb), 0.4);
   color: var(--cream);
   border-radius: 999px;
   cursor: pointer;
@@ -105,7 +105,7 @@
 
 .lightbox-close:hover,
 .lightbox-nav:hover {
-  background: rgba(201, 169, 110, 0.22);
+  background: rgba(var(--gold-rgb), 0.22);
   border-color: var(--gold);
   color: var(--cream);
 }

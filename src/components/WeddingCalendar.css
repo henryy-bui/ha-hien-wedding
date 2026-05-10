@@ -19,11 +19,7 @@
       var(--gold-faint) 0%,
       transparent 55%
     ),
-    radial-gradient(
-      circle at 100% 100%,
-      rgba(232, 165, 152, 0.1) 0%,
-      transparent 55%
-    );
+    radial-gradient(circle at 100% 100%, var(--rose-rgb) 0%, transparent 55%);
   pointer-events: none;
 }
 

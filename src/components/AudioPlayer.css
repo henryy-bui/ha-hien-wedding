@@ -20,7 +20,7 @@
   background: var(--white-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(201, 169, 110, 0.4);
+  border: 1.5px solid rgba(var(--gold-rgb), 0.4);
   box-shadow: 0 4px 20px rgba(44, 44, 44, 0.12);
   cursor: pointer;
   display: flex;
@@ -32,7 +32,7 @@
 
 @media (hover: hover) {
   .audio-btn:hover {
-    box-shadow: 0 6px 28px rgba(201, 169, 110, 0.35);
+    box-shadow: 0 6px 28px rgba(var(--gold-rgb), 0.35);
     border-color: var(--gold);
     transform: scale(1.08);
   }

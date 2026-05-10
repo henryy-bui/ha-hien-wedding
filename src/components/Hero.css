@@ -97,13 +97,13 @@
   inset: -20%;
   background: linear-gradient(
     -45deg,
-    #fff8f0,
-    #fbe8d8,
-    #f5c5bc,
-    #e8d5b0,
-    #fbe8d8,
-    #f5d5cf,
-    #fff8f0
+    var(--cream),
+    var(--cream-dark),
+    var(--rose-light),
+    var(--gold-light),
+    var(--cream-dark),
+    var(--rose-light),
+    var(--cream)
   );
   background-size: 400% 400%;
   animation: gradient-flow 16s ease infinite;
@@ -125,8 +125,8 @@
   top: -20px;
   background: linear-gradient(
     135deg,
-    rgba(232, 165, 152, 0.75),
-    rgba(201, 169, 110, 0.5)
+    rgba(var(--rose-rgb), 0.75),
+    rgba(var(--gold-rgb), 0.5)
   );
   border-radius: 70% 30% 70% 30% / 30% 70% 30% 70%;
   animation: fall-petal linear infinite;
@@ -182,9 +182,9 @@
     90deg,
     var(--charcoal) 0%,
     var(--charcoal) 20%,
-    #e8d5b0 38%,
-    #fff4c0 50%,
-    #e8d5b0 62%,
+    var(--gold-light) 38%,
+    var(--cream) 50%,
+    var(--gold-light) 62%,
     var(--charcoal) 80%,
     var(--charcoal) 100%
   );
@@ -291,7 +291,7 @@
   background: var(--white-glass);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(201, 169, 110, 0.35);
+  border: 1px solid rgba(var(--gold-rgb), 0.35);
   border-radius: 12px;
   padding: clamp(12px, 2vw, 20px) clamp(14px, 3vw, 26px);
   min-width: clamp(60px, 11vw, 88px);
@@ -301,8 +301,8 @@
 
 @media (hover: hover) {
   .countdown-item:hover {
-    box-shadow: 0 8px 28px rgba(201, 169, 110, 0.3);
-    border-color: rgba(201, 169, 110, 0.6);
+    box-shadow: 0 8px 28px rgba(var(--gold-rgb), 0.3);
+    border-color: rgba(var(--gold-rgb), 0.6);
   }
 }
 

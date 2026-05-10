@@ -53,7 +53,7 @@
 .nav-dot.active .nav-dot-pip {
   background: var(--gold);
   transform: scale(1.5);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.22);
+  box-shadow: 0 0 0 3px rgba(var(--gold-rgb), 0.22);
 }
 
 .nav-dot:hover .nav-dot-pip {

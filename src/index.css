@@ -11,7 +11,7 @@
 :root {
   --gold: #c9a96e;
   --gold-light: #e8d5b0;
-  --gold-faint: rgba(201, 169, 110, 0.12);
+  --gold-faint: rgba(var(--gold-rgb), 0.12);
   --cream: #fff8f0;
   --cream-dark: #fbe8d8;
   --rose: #e8a598;
@@ -22,13 +22,18 @@
   --white: #ffffff;
   --white-glass: rgba(255, 255, 255, 0.75);
 
+  /* RGB triplets so themed transparencies work everywhere via rgba(var(--token-rgb), α). */
+  --gold-rgb: 201, 169, 110;
+  --rose-rgb: 232, 165, 152;
+  --cream-rgb: 255, 248, 240;
+
   --font-heading: "Playfair Display", Georgia, serif;
   --font-display: "Mea Culpa", cursive, serif;
   --font-body: "Be Vietnam Pro", system-ui, sans-serif;
 
   --radius: 16px;
   --shadow-soft: 0 8px 32px rgba(44, 44, 44, 0.08);
-  --shadow-hover: 0 16px 48px rgba(201, 169, 110, 0.25);
+  --shadow-hover: 0 16px 48px rgba(var(--gold-rgb), 0.25);
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -37,26 +42,56 @@
    charcoal, white, fonts, radii etc. inherit from :root. The default
    (Ivory & Gold) ships with no data-theme attribute.
 */
+/* Lá Trầu — betel leaf green paired with warm "cau" (areca nut) rose.
+   Trầu cau is THE Vietnamese marriage symbol: the green betel leaf and
+   reddish areca nut presented together represent an inseparable bond. */
 [data-theme="sage"] {
-  --gold: #9caf88;
-  --gold-light: #c9d4be;
-  --gold-faint: rgba(156, 175, 136, 0.14);
-  --rose: #d8a7a4;
-  --rose-light: #ebcfcc;
-  --cream: #f7f4ee;
-  --cream-dark: #ebe5d6;
-  --shadow-hover: 0 16px 48px rgba(156, 175, 136, 0.28);
+  --gold: #6b8e5a;
+  --gold-light: #b5c5a2;
+  --gold-rgb: 107, 142, 90;
+  --gold-faint: rgba(var(--gold-rgb), 0.14);
+  --rose: #c2807a;
+  --rose-light: #e7c5c1;
+  --rose-rgb: 194, 128, 122;
+  --cream: #f5f1e8;
+  --cream-dark: #e3dcc5;
+  --cream-rgb: 245, 241, 232;
+  --shadow-hover: 0 16px 48px rgba(var(--gold-rgb), 0.28);
 }
 
+/* Hoa Sen — lotus pink primary with warm gold stamen accents. Sen is
+   Vietnam's national flower; pink + gold reads as romantic, modern,
+   distinctly Vietnamese without being as bold as Hỉ Đỏ. */
 [data-theme="dusk"] {
-  --gold: #b07b5e;
-  --gold-light: #d8b39c;
-  --gold-faint: rgba(176, 123, 94, 0.16);
-  --rose: #8e4a5d;
-  --rose-light: #c89aa7;
-  --cream: #fbf2ea;
-  --cream-dark: #f3dccb;
-  --shadow-hover: 0 16px 48px rgba(142, 74, 93, 0.25);
+  --gold: #d97287;
+  --gold-light: #f0bdc8;
+  --gold-rgb: 217, 114, 135;
+  --gold-faint: rgba(var(--gold-rgb), 0.14);
+  --rose: #d4a85c;
+  --rose-light: #ecd9a5;
+  --rose-rgb: 212, 168, 92;
+  --cream: #fdf5f4;
+  --cream-dark: #f7e3df;
+  --cream-rgb: 253, 245, 244;
+  --shadow-hover: 0 16px 48px rgba(var(--gold-rgb), 0.28);
+}
+
+/* Traditional Asian wedding palette: auspicious red paired with warm
+   gold — the classic áo dài cưới / 囍 colors. Red carries the primary
+   accent role; gold sits where rose normally would so red+gold gradients
+   land naturally on buttons and dividers. */
+[data-theme="crimson"] {
+  --gold: #b8323a;
+  --gold-light: #e9b9bb;
+  --gold-rgb: 184, 50, 58;
+  --gold-faint: rgba(var(--gold-rgb), 0.13);
+  --rose: #d4a64a;
+  --rose-light: #ecd9a5;
+  --rose-rgb: 212, 166, 74;
+  --cream: #fdf6ee;
+  --cream-dark: #f5d9c5;
+  --cream-rgb: 253, 246, 238;
+  --shadow-hover: 0 16px 48px rgba(var(--gold-rgb), 0.28);
 }
 
 /* Smooth crossfade when the user switches themes. Fast enough not to

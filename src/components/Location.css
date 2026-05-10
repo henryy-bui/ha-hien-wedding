@@ -72,7 +72,7 @@
   background: linear-gradient(
     135deg,
     var(--gold-faint),
-    rgba(232, 165, 152, 0.12)
+    rgba(var(--rose-rgb), 0.12)
   );
   border: 1px solid var(--gold-light);
   border-radius: 12px;
@@ -177,7 +177,7 @@
   .location-btn--primary:hover {
     opacity: 0.92;
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(201, 169, 110, 0.4);
+    box-shadow: 0 10px 26px rgba(var(--gold-rgb), 0.4);
   }
   .location-btn--primary:hover span {
     transform: translateX(4px);
