@@ -75,6 +75,18 @@
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Inset hairline frame — only shown on the active mobile slide */
+.gallery-frame {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .gallery-note {
   font-family: var(--font-heading);
   font-style: italic;
@@ -83,14 +95,137 @@
   text-align: center;
 }
 
+/* Pager (dots + counter) — desktop hidden, mobile-only */
+.gallery-pager {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .gallery-grid {
     column-count: 2;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
+  /* ─── Carousel layout ─────────────────────────────────────────── */
   .gallery-grid {
-    column-count: 1;
+    margin: 0 0 18px;
+    column-count: initial;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 8px 4px 22px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-grid .gallery-item {
+    flex: 0 0 80%;
+    margin: 0;
+    scroll-snap-align: center;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    /* compose with .reveal's transition for opacity, transform */
+    transition: opacity 0.55s ease, box-shadow 0.55s ease,
+                transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .gallery-grid .gallery-item:first-child {
+    scroll-snap-align: start;
+  }
+  .gallery-grid .gallery-item:last-child {
+    scroll-snap-align: end;
+  }
+
+  /* Inactive slides recede; active one glows with a warm gold cast.
+     Higher specificity than `.reveal.visible { opacity: 1 }` so the
+     dimmed state holds after the entrance animation completes. */
+  .gallery-grid .gallery-item.reveal:not(.is-active) {
+    opacity: 0.42;
+  }
+  .gallery-grid .gallery-item.reveal.is-active {
+    opacity: 1;
+    box-shadow: 0 24px 48px -12px rgba(var(--gold-rgb), 0.45),
+                0 6px 18px rgba(0, 0, 0, 0.16);
+  }
+  .gallery-grid .gallery-item.is-active .gallery-frame {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .gallery-grid .gallery-item.is-active .gallery-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(44, 44, 44, 0.18) 0%,
+      rgba(44, 44, 44, 0) 45%
+    );
+  }
+
+  /* ─── Pager: animated dots + ordinal counter ──────────────────── */
+  .gallery-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-bottom: 8px;
+  }
+
+  .gallery-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gallery-dot {
+    width: 7px;
+    height: 7px;
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(var(--gold-rgb), 0.22);
+    cursor: pointer;
+    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.35s ease;
+  }
+
+  .gallery-dot.is-active {
+    width: 24px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--rose));
+  }
+
+  .gallery-dot:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .gallery-counter {
+    font-family: var(--font-heading);
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .gallery-counter-num {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    font-size: 1rem;
+  }
+
+  .gallery-counter-sep {
+    margin: 0 6px;
+    opacity: 0.4;
+  }
+
+  .gallery-counter-total {
+    font-variant-numeric: tabular-nums;
   }
 }
