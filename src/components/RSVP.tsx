@@ -1,33 +1,34 @@
-import { type FormEvent, useState } from 'react'
+import { useState } from 'react'
 import confetti from 'canvas-confetti'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useSide } from '../sideContext'
 import './RSVP.css'
 
 interface FormState {
   name: string
-  attending: 'yes' | 'no' | ''
-  guests: string
+  note: string
 }
 
 interface FormErrors {
   name?: string
-  attending?: string
-  guests?: string
+  note?: string
 }
+
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+
+const ENDPOINT = import.meta.env.VITE_RSVP_ENDPOINT
 
 export default function RSVP() {
   const sectionRef = useScrollReveal<HTMLElement>()
-  const [form, setForm] = useState<FormState>({ name: '', attending: '', guests: '1' })
+  const side = useSide()
+  const [form, setForm] = useState<FormState>({ name: '', note: '' })
   const [errors, setErrors] = useState<FormErrors>({})
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<SubmitStatus>('idle')
 
   function validate(): FormErrors {
     const e: FormErrors = {}
     if (!form.name.trim()) e.name = 'Vui lòng nhập họ và tên.'
-    if (!form.attending) e.attending = 'Vui lòng cho chúng mình biết bạn có tham dự không.'
-    if (form.attending === 'yes' && parseInt(form.guests) < 1) {
-      e.guests = 'Số lượng khách phải ít nhất là 1.'
-    }
+    if (!form.note.trim()) e.note = 'Vui lòng để lại lời chúc cho cô dâu chú rể.'
     return e
   }
 
@@ -42,94 +43,115 @@ export default function RSVP() {
     setTimeout(() => confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors }), 500)
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  async function submitRsvp() {
     const errs = validate()
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
     setErrors({})
-    setSubmitted(true)
-    if (form.attending === 'yes') fireConfetti()
+    setStatus('submitting')
+
+    const payload = {
+      side,
+      name: form.name.trim(),
+      note: form.note.trim(),
+      submittedAt: new Date().toISOString(),
+    }
+
+    try {
+      if (!ENDPOINT) {
+        // No endpoint configured — log to console so the host can still see what was submitted
+        // during local development. The thank-you screen still shows.
+        console.warn('[RSVP] VITE_RSVP_ENDPOINT not set — submission not persisted.', payload)
+      } else {
+        // Apps Script Web Apps don't support CORS preflight, so POST as text/plain
+        // (a "simple request" content-type) — the script reads e.postData.contents.
+        await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+          redirect: 'follow',
+        })
+      }
+      setStatus('success')
+      fireConfetti()
+    } catch (err) {
+      console.error('[RSVP] submit failed', err)
+      setStatus('error')
+    }
   }
+
+  function retry() {
+    setStatus('idle')
+  }
+
+  const submitting = status === 'submitting'
+  const success    = status === 'success'
 
   return (
     <section className="rsvp-bg" ref={sectionRef} id="rsvp" data-wipe="left">
       <div className="section" style={{ textAlign: 'center' }}>
         <div className="reveal">
-          <span className="section-label">Xác Nhận Tham Dự</span>
-          <h2 className="section-title">Bạn Có Tham Dự Không?</h2>
+          <span className="section-label">Lời Chúc Của Bạn</span>
+          <h2 className="section-title">Gửi Lời Chúc Đến Cô Dâu Chú Rể</h2>
           <p className="rsvp-sub reveal reveal-delay-1">
-            Hãy cho chúng mình biết trước ngày <strong>20 tháng 05 năm 2026</strong> nhé.
+            Một lời chúc nhỏ từ bạn sẽ là món quà lớn nhất cho ngày trọng đại của chúng mình.
           </p>
           <div className="section-divider" />
         </div>
 
         <div className="rsvp-card reveal reveal-delay-2 reveal-drop">
-          {submitted ? (
+          {success ? (
             <div className="rsvp-success">
-              <span className="rsvp-success-icon">{form.attending === 'yes' ? '🎉' : '💌'}</span>
-              <h3>
-                {form.attending === 'yes'
-                  ? `Cảm ơn ${form.name}! Chúng mình rất vui khi bạn sẽ có mặt!`
-                  : `Cảm ơn ${form.name} đã phản hồi!`}
-              </h3>
-              <p>
-                {form.attending === 'yes'
-                  ? 'Hẹn gặp bạn ngày 31 tháng 05 nhé! Nhớ ăn mặc thật đẹp 😊'
-                  : 'Dù vắng mặt, bạn vẫn luôn trong trái tim của chúng mình ❤️'}
-              </p>
+              <span className="rsvp-success-icon">💌</span>
+              <h3>Cảm ơn {form.name}!</h3>
+              <p>Lời chúc của bạn đã được gửi đến Hà &amp; Hiền ❤️</p>
             </div>
           ) : (
-            <form className="rsvp-form" onSubmit={handleSubmit} noValidate>
+            <form
+              className="rsvp-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                void submitRsvp()
+              }}
+              noValidate
+            >
               <div className={`form-group ${errors.name ? 'has-error' : ''}`}>
                 <label htmlFor="rsvp-name">Họ và Tên</label>
                 <input
                   id="rsvp-name"
                   type="text"
                   placeholder="Nguyễn Văn A"
+                  autoComplete="name"
                   value={form.name}
                   onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  disabled={submitting}
                 />
                 {errors.name && <span className="form-error">{errors.name}</span>}
               </div>
 
-              <div className={`form-group ${errors.attending ? 'has-error' : ''}`}>
-                <label>Bạn có tham dự không?</label>
-                <div className="radio-group">
-                  {([
-                    { value: 'yes', label: '🥂 Có, tôi sẽ đến!' },
-                    { value: 'no',  label: '😢 Rất tiếc, tôi không thể đến' },
-                  ] as const).map(({ value, label }) => (
-                    <label key={value} className={`radio-opt ${form.attending === value ? 'selected' : ''}`}>
-                      <input
-                        type="radio"
-                        name="attending"
-                        value={value}
-                        checked={form.attending === value}
-                        onChange={() => setForm((f) => ({ ...f, attending: value }))}
-                      />
-                      {label}
-                    </label>
-                  ))}
-                </div>
-                {errors.attending && <span className="form-error">{errors.attending}</span>}
+              <div className={`form-group ${errors.note ? 'has-error' : ''}`}>
+                <label htmlFor="rsvp-note">Lời Chúc</label>
+                <textarea
+                  id="rsvp-note"
+                  rows={4}
+                  maxLength={500}
+                  placeholder="Gửi lời chúc đến cô dâu chú rể..."
+                  value={form.note}
+                  onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
+                  disabled={submitting}
+                />
+                {errors.note && <span className="form-error">{errors.note}</span>}
               </div>
 
-              {form.attending === 'yes' && (
-                <div className={`form-group ${errors.guests ? 'has-error' : ''}`}>
-                  <label htmlFor="rsvp-guests">Số lượng khách (kể cả bạn)</label>
-                  <input
-                    id="rsvp-guests"
-                    type="number"
-                    min="1"
-                    max="10"
-                    value={form.guests}
-                    onChange={(e) => setForm((f) => ({ ...f, guests: e.target.value }))}
-                  />
-                  {errors.guests && <span className="form-error">{errors.guests}</span>}
+              {status === 'error' && (
+                <div className="rsvp-banner rsvp-banner--error" role="alert">
+                  Có lỗi khi gửi. Vui lòng thử lại hoặc liên hệ trực tiếp với chúng mình.
+                  <button type="button" className="rsvp-banner-retry" onClick={retry}>Thử lại</button>
                 </div>
               )}
 
-              <button type="submit" className="rsvp-btn">Gửi Xác Nhận ✨</button>
+              <button type="submit" className="rsvp-btn" disabled={submitting}>
+                {submitting ? 'Đang gửi…' : 'Gửi Lời Chúc ✨'}
+              </button>
             </form>
           )}
         </div>

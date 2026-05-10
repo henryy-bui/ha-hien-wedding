@@ -28,27 +28,12 @@ interface Person {
 const PEOPLE: Person[] = [
   {
     numeral: "I",
-    role: "Chú Rể",
-    roleEn: "Groom",
-    name: "Văn Hà",
-    monogram: "V",
-    photoBg: "linear-gradient(155deg, var(--gold) 0%, var(--gold-light) 55%, var(--cream-dark) 100%)",
-    photoUrl: "/images/groom.jpg",
-    accent: "gold",
-    bio: "Một chàng trai chân thành với nụ cười ấm áp và niềm tin vững chắc rằng tình yêu là hành trình đáng trân trọng nhất hai người cùng đi.",
-    facts: [],
-    parents: {
-      father: "Ông Bùi Văn Sơn",
-      mother: "Bà Nguyễn Thị Là",
-    },
-  },
-  {
-    numeral: "II",
     role: "Cô Dâu",
     roleEn: "Bride",
     name: "Thanh Hiền",
     monogram: "T",
-    photoBg: "linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 55%, var(--cream) 100%)",
+    photoBg:
+      "linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 55%, var(--cream) 100%)",
     photoUrl: "/images/bride.jpg",
     accent: "rose",
     bio: "Một cô gái dịu dàng với đôi mắt biết cười và tâm hồn lãng mạn — luôn tin rằng những điều nhỏ bé tạo nên hạnh phúc lớn lao nhất.",
@@ -56,6 +41,23 @@ const PEOPLE: Person[] = [
     parents: {
       father: "",
       mother: "Bà Tống Thị Nếp",
+    },
+  },
+  {
+    numeral: "II",
+    role: "Chú Rể",
+    roleEn: "Groom",
+    name: "Văn Hà",
+    monogram: "V",
+    photoBg:
+      "linear-gradient(155deg, var(--gold) 0%, var(--gold-light) 55%, var(--cream-dark) 100%)",
+    photoUrl: "/images/groom.jpg",
+    accent: "gold",
+    bio: "Một chàng trai chân thành với nụ cười ấm áp và niềm tin vững chắc rằng tình yêu là hành trình đáng trân trọng nhất hai người cùng đi.",
+    facts: [],
+    parents: {
+      father: "Ông Bùi Văn Sơn",
+      mother: "Bà Nguyễn Thị Là",
     },
   },
 ];
@@ -104,9 +106,9 @@ export default function Introduction() {
                         src={p.photoUrl}
                         alt={p.name}
                         style={{
-                          scale: p.numeral === "II" ? 2 : 1,
+                          scale: p.roleEn === "Bride" ? 2 : 1,
                           transform:
-                            p.numeral === "II"
+                            p.roleEn === "Bride"
                               ? "translateY(10%) translateX(-5%)"
                               : "none",
                         }}
@@ -117,8 +119,6 @@ export default function Introduction() {
 
                   <div className="intro-text">
                     <h3 className="intro-name">{p.name}</h3>
-                    <div className="intro-rule" />
-                    <p className="intro-bio">{p.bio}</p>
                     {p.facts.length > 0 && (
                       <ul className="intro-facts">
                         {p.facts.map((f) => (

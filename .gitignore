@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
 .yarn
 
 # Editor directories and files

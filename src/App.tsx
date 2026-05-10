@@ -4,6 +4,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import CursorEffect from "./components/CursorEffect";
 import AudioPlayer from "./components/AudioPlayer";
 import ThemeSwitcher from "./components/ThemeSwitcher";
+import WishesOverlay from "./components/WishesOverlay";
 import ScrollProgress from "./components/ScrollProgress";
 import NavDots from "./components/NavDots";
 import Hero from "./components/Hero";
@@ -28,6 +29,7 @@ function App() {
         <>
           <AudioPlayer />
           <ThemeSwitcher />
+          <WishesOverlay />
           <ScrollProgress />
           <NavDots />
           <Hero />

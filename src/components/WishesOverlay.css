@@ -1,0 +1,248 @@
+.wishes-overlay {
+  position: fixed;
+  bottom: 22px;
+  right: 30px;
+  z-index: 55;
+  width: 280px;
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+  background: var(--white-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--gold-light);
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(44, 44, 44, 0.14);
+  overflow: hidden;
+  font-family: var(--font-body);
+  animation: wishes-overlay-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wishes-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wishes-overlay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--gold-faint);
+  background: linear-gradient(
+    135deg,
+    var(--gold-faint),
+    rgba(var(--rose-rgb), 0.1)
+  );
+}
+
+.wishes-overlay-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+.wishes-overlay-icon {
+  font-style: normal;
+  font-size: 1rem;
+}
+
+.wishes-overlay-close {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.wishes-overlay-close:hover {
+  background: var(--gold-faint);
+  color: var(--charcoal);
+}
+
+/* ─── Scrolling viewport ────────────────────────────────────── */
+.wishes-viewport {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  padding: 8px 0;
+  /* Soft fade at the top + bottom so wishes appear/disappear gracefully
+     instead of clipping at hard edges. */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 18px,
+    #000 calc(100% - 18px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 18px,
+    #000 calc(100% - 18px),
+    transparent 100%
+  );
+}
+
+.wishes-track {
+  display: flex;
+  flex-direction: column;
+  /* duration is set inline based on wish count */
+  animation-name: wishes-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.wishes-overlay:hover .wishes-track {
+  animation-play-state: paused;
+}
+
+@keyframes wishes-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.wishes-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ─── Wish card ─────────────────────────────────────────────── */
+.wish-card {
+  background: var(--white);
+  border: 1px solid var(--gold-faint);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 8px rgba(44, 44, 44, 0.04);
+}
+
+.wish-card--bride {
+  border-left-color: var(--rose);
+}
+
+.wish-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.wish-name {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--charcoal);
+  letter-spacing: 0.01em;
+}
+
+.wish-note {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text);
+  /* Long wishes get clamped so each card stays a similar height. */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Collapsed chip ────────────────────────────────────────── */
+.wishes-chip {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 55;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-light);
+  background: var(--white-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.wishes-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-hover);
+}
+
+.wishes-chip-icon {
+  font-size: 1rem;
+}
+
+.wishes-chip-count {
+  font-weight: 600;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .wishes-overlay {
+    bottom: 14px;
+    right: 5px;
+    width: calc(100vw - 28px);
+    max-width: 320px;
+    max-height: 320px;
+  }
+  .wishes-chip {
+    bottom: 14px;
+    right: 14px;
+  }
+  .wish-note {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wishes-track {
+    /* Stop the scroll under reduced-motion preferences — the user can still
+       see the first batch and pause/resume by hovering. */
+    animation: none;
+  }
+  .wishes-overlay {
+    animation: none;
+  }
+}
