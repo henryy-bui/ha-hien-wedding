@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Generate public/og-image-v2.jpg (1200×630) for social link previews.
+ * Generate public/og-image-small.jpg (1200×630) for social link previews.
  *
  * Layout: bride and groom portraits as gold-ringed circles flanking
  * the names, with date and "Save the Date" caption below, on a cream
@@ -16,7 +16,7 @@ import sharp from "sharp";
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
 const BRIDE = ROOT + "public/images/bride.jpg";
 const GROOM = ROOT + "public/images/groom.jpg";
-const OUT = ROOT + "public/og-image-v2.jpg";
+const OUT = ROOT + "public/og-image-small.jpg";
 
 const W = 1200;
 const H = 630;
