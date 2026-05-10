@@ -141,7 +141,9 @@ export default function RSVP() {
             <div className="rsvp-success">
               <span className="rsvp-success-icon">💌</span>
               <h3>Cảm ơn {form.name}!</h3>
-              <p>Lời chúc của bạn đã được gửi đến Cô Dâu &amp; Chú Rể ❤️</p>
+              <p>
+                Lời chúc của bạn đã được gửi đến <br /> Cô Dâu &amp; Chú Rể ❤️
+              </p>
             </div>
           ) : (
             <form

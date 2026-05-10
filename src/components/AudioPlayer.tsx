@@ -11,15 +11,31 @@ export default function AudioPlayer() {
 
     audio.volume = 0.15;
 
-    // Attempt autoplay — browsers may block until first user interaction
-    audio
-      .play()
-      .then(() => setPlaying(true))
-      .catch(() => {
-        /* blocked: button stays visible, user clicks to start */
-      });
+    const events = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+
+    const cleanup = () => {
+      events.forEach((e) => window.removeEventListener(e, tryPlay));
+    };
+
+    const tryPlay = () => {
+      audio
+        .play()
+        .then(() => {
+          setPlaying(true);
+          cleanup();
+        })
+        .catch(() => {
+          /* still blocked: wait for next interaction */
+        });
+    };
+
+    tryPlay();
+    events.forEach((e) =>
+      window.addEventListener(e, tryPlay, { passive: true })
+    );
 
     return () => {
+      cleanup();
       audio.pause();
     };
   }, []);
