@@ -28,23 +28,6 @@ interface Person {
 const PEOPLE: Person[] = [
   {
     numeral: "I",
-    role: "Cô Dâu",
-    roleEn: "Bride",
-    name: "Thanh Hiền",
-    monogram: "T",
-    photoBg:
-      "linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 55%, var(--cream) 100%)",
-    photoUrl: "/images/bride.jpg",
-    accent: "rose",
-    bio: "Một cô gái dịu dàng với đôi mắt biết cười và tâm hồn lãng mạn — luôn tin rằng những điều nhỏ bé tạo nên hạnh phúc lớn lao nhất.",
-    facts: [],
-    parents: {
-      father: "",
-      mother: "Bà Tống Thị Nếp",
-    },
-  },
-  {
-    numeral: "II",
     role: "Chú Rể",
     roleEn: "Groom",
     name: "Văn Hà",
@@ -58,6 +41,23 @@ const PEOPLE: Person[] = [
     parents: {
       father: "Ông Bùi Văn Sơn",
       mother: "Bà Nguyễn Thị Là",
+    },
+  },
+  {
+    numeral: "II",
+    role: "Cô Dâu",
+    roleEn: "Bride",
+    name: "Thanh Hiền",
+    monogram: "T",
+    photoBg:
+      "linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 55%, var(--cream) 100%)",
+    photoUrl: "/images/bride.jpg",
+    accent: "rose",
+    bio: "Một cô gái dịu dàng với đôi mắt biết cười và tâm hồn lãng mạn — luôn tin rằng những điều nhỏ bé tạo nên hạnh phúc lớn lao nhất.",
+    facts: [],
+    parents: {
+      father: "",
+      mother: "Bà Tống Thị Nếp",
     },
   },
 ];

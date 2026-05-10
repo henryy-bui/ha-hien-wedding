@@ -39,17 +39,39 @@ const PHOTOS: LightboxPhoto[] = [
   },
 ];
 
+// Matches the `@media (max-width: 640px)` breakpoint in Gallery.css —
+// keep the two in sync so the JS carousel and the CSS slide layout
+// activate together.
+const MOBILE_QUERY = "(max-width: 640px)";
+
 export default function Gallery() {
   const sectionRef = useScrollReveal<HTMLElement>();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(
+    () =>
+      typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches
+  );
   const slideRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  // Track which slide is centered in the mobile carousel. On desktop the
-  // grid isn't a scroll container, so the observer never updates state and
-  // the pager stays hidden via CSS — no special-casing needed.
+  // Watch the mobile breakpoint so resizing across it tears down /
+  // re-mounts the carousel logic cleanly (no stale observers, no pager
+  // hanging around in the DOM on desktop).
   useEffect(() => {
+    const mql = window.matchMedia(MOBILE_QUERY);
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+
+  // Track which slide is centered. Only runs on mobile — desktop uses
+  // the masonry grid layout where active-state has no meaning. We don't
+  // reset activeIndex when leaving mobile because every consumer is
+  // already gated on `isMobile`, so the stale value is unread.
+  useEffect(() => {
+    if (!isMobile) return;
     const container = slideRef.current;
     if (!container) return;
     const items = itemRefs.current.filter((x): x is HTMLButtonElement => !!x);
@@ -74,7 +96,7 @@ export default function Gallery() {
 
     items.forEach((it) => observer.observe(it));
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
   const scrollToIndex = (i: number) => {
     itemRefs.current[i]?.scrollIntoView({
@@ -116,7 +138,9 @@ export default function Gallery() {
               type="button"
               className={`gallery-item reveal reveal-delay-${
                 (i % 3) + 1
-              } reveal-blur${activeIndex === i ? " is-active" : ""}`}
+              } reveal-blur${
+                isMobile && activeIndex === i ? " is-active" : ""
+              }`}
               style={{
                 backgroundImage: `url("${p.bg}")`,
                 aspectRatio: p.aspectRatio,
@@ -132,36 +156,38 @@ export default function Gallery() {
           ))}
         </div>
 
-        <div className="gallery-pager">
-          <div
-            className="gallery-dots"
-            role="tablist"
-            aria-label="Điều hướng ảnh"
-          >
-            {PHOTOS.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                role="tab"
-                aria-selected={activeIndex === i}
-                aria-label={`Đi đến ảnh ${i + 1}`}
-                className={`gallery-dot${
-                  activeIndex === i ? " is-active" : ""
-                }`}
-                onClick={() => scrollToIndex(i)}
-              />
-            ))}
+        {isMobile && (
+          <div className="gallery-pager">
+            <div
+              className="gallery-dots"
+              role="tablist"
+              aria-label="Điều hướng ảnh"
+            >
+              {PHOTOS.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeIndex === i}
+                  aria-label={`Đi đến ảnh ${i + 1}`}
+                  className={`gallery-dot${
+                    activeIndex === i ? " is-active" : ""
+                  }`}
+                  onClick={() => scrollToIndex(i)}
+                />
+              ))}
+            </div>
+            <span className="gallery-counter" aria-hidden="true">
+              <span className="gallery-counter-num">
+                {String(activeIndex + 1).padStart(2, "0")}
+              </span>
+              <span className="gallery-counter-sep">/</span>
+              <span className="gallery-counter-total">
+                {String(PHOTOS.length).padStart(2, "0")}
+              </span>
+            </span>
           </div>
-          <span className="gallery-counter" aria-hidden="true">
-            <span className="gallery-counter-num">
-              {String(activeIndex + 1).padStart(2, "0")}
-            </span>
-            <span className="gallery-counter-sep">/</span>
-            <span className="gallery-counter-total">
-              {String(PHOTOS.length).padStart(2, "0")}
-            </span>
-          </span>
-        </div>
+        )}
       </div>
 
       <Lightbox

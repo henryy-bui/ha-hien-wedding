@@ -231,7 +231,7 @@ button {
 }
 .reveal.reveal-blur {
   transform: translateY(20px);
-  filter: blur(8px);
+  /* filter: blur(8px); */
   transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
 }
 .reveal.reveal-blur.visible {

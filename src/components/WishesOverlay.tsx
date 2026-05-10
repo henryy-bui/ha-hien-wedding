@@ -113,7 +113,7 @@ export default function WishesOverlay() {
     <>
       <aside
         className="wishes-overlay"
-        aria-label="Lời chúc đang được gửi đến cô dâu chú rể"
+        aria-label="Lời chúc đang được gửi đến cô dâu &amp; chú rể"
       >
         <header className="wishes-overlay-head">
           <div className="wishes-overlay-title-row">
