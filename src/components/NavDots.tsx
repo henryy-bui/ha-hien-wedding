@@ -9,6 +9,7 @@ const SECTIONS = [
   { id: 'location',     label: 'Địa điểm'    },
   { id: 'gallery',      label: 'Khoảnh khắc' },
   { id: 'rsvp',         label: 'Lời chúc'    },
+  { id: 'wedding-gift', label: 'Mừng cưới'   },
 ]
 
 export default function NavDots() {

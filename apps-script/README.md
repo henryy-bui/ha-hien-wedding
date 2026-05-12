@@ -58,7 +58,7 @@ row with these 5 columns:
 | Column          | Source |
 | --------------- | ------ |
 | Thời Gian       | Server time when the row was appended |
-| Bên             | `groom` / `bride` (auto-detected from `?side=` query param) |
+| Bên             | `groom` / `bride` (auto-detected from the first path segment, e.g. `/groom`, `/bride`) |
 | Họ và Tên       | The "Họ và Tên" field |
 | Lời Chúc        | The "Lời chúc" message |
 | Khách Gửi Lúc   | ISO timestamp from the guest's browser |

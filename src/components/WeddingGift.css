@@ -1,0 +1,572 @@
+.gift-bg {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.gift-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(var(--gold-rgb), 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      rgba(var(--rose-rgb), 0.14),
+      transparent 55%
+    );
+  pointer-events: none;
+}
+
+.gift-intro {
+  max-width: 620px;
+  margin: 0 auto clamp(32px, 5vw, 48px);
+  font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text);
+  font-style: italic;
+}
+
+.gift-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3vw, 40px);
+  position: relative;
+  z-index: 1;
+}
+
+.gift-spread-single {
+  grid-template-columns: minmax(0, 460px);
+  justify-content: center;
+}
+
+.gift-card {
+  position: relative;
+  background: var(--white);
+  border-radius: calc(var(--radius) + 6px);
+  padding: clamp(28px, 4vw, 40px) clamp(22px, 3vw, 32px);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(var(--gold-rgb), 0.12);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gift-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  border-radius: calc(var(--radius) + 6px) calc(var(--radius) + 6px) 0 0;
+  opacity: 0.85;
+}
+
+.gift-card.accent-gold::before {
+  background: linear-gradient(90deg, var(--gold-light), var(--gold));
+}
+
+.gift-card.accent-rose::before {
+  background: linear-gradient(90deg, var(--rose-light), var(--rose));
+}
+
+@media (hover: hover) {
+  .gift-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+.gift-side-label {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.gift-card-head {
+  margin-bottom: clamp(20px, 3vw, 28px);
+}
+
+.gift-role {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.gift-card.accent-rose .gift-role {
+  color: var(--rose);
+}
+
+.gift-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3.4vw, 1.75rem);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+/* ─── Stage: swap between closed gift box and opened QR/info ───
+   Conditional render in React means only one child exists at a time.
+   A mount-time keyframe gives each swap a soft fade/scale entrance. */
+.gift-stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes gift-stage-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gift-closed,
+.gift-opened {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: gift-stage-in 0.55s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.gift-closed {
+  /* Reset button defaults so the entire closed face is one
+     accessible click target. */
+  appearance: none;
+  background: transparent;
+  border: none;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  border-radius: var(--radius);
+  outline-offset: 4px;
+}
+
+.gift-closed:focus-visible {
+  outline: 2px solid var(--gold);
+}
+
+.gift-card.accent-rose .gift-closed:focus-visible {
+  outline-color: var(--rose);
+}
+
+/* ─── Gift box graphic (CSS-drawn) ───────────────────────────── */
+.gift-box {
+  position: relative;
+  width: clamp(140px, 22vw, 180px);
+  height: clamp(140px, 22vw, 180px);
+  margin: clamp(8px, 2vw, 16px) auto clamp(20px, 3vw, 28px);
+  display: block;
+  animation: gift-bob 3.6s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes gift-bob {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+.gift-card.accent-gold .gift-box-body {
+  background: linear-gradient(155deg, var(--gold) 0%, var(--gold-light) 100%);
+}
+
+.gift-card.accent-rose .gift-box-body {
+  background: linear-gradient(155deg, var(--rose) 0%, var(--rose-light) 100%);
+}
+
+.gift-card.accent-gold .gift-box-lid {
+  background: linear-gradient(165deg, var(--gold) 0%, var(--gold-light) 100%);
+}
+
+.gift-card.accent-rose .gift-box-lid {
+  background: linear-gradient(165deg, var(--rose) 0%, var(--rose-light) 100%);
+}
+
+.gift-box-body {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 32%;
+  bottom: 4%;
+  border-radius: 6px;
+  box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.12),
+    0 14px 24px rgba(var(--gold-rgb), 0.25);
+}
+
+.gift-box-lid {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 22%;
+  height: 18%;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  z-index: 2;
+}
+
+.gift-box-ribbon-v {
+  position: absolute;
+  top: 22%;
+  bottom: 4%;
+  left: 50%;
+  width: 14px;
+  margin-left: -7px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.55) 100%
+  );
+  z-index: 3;
+  border-radius: 2px;
+}
+
+.gift-box-ribbon-h {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 40%;
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.55) 100%
+  );
+  z-index: 3;
+  border-radius: 2px;
+}
+
+.gift-box-bow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 56px;
+  height: 32px;
+  margin-left: -28px;
+  z-index: 4;
+  background: radial-gradient(
+      ellipse at 25% 50%,
+      var(--white) 0%,
+      var(--white) 30%,
+      transparent 31%
+    ),
+    radial-gradient(
+      ellipse at 75% 50%,
+      var(--white) 0%,
+      var(--white) 30%,
+      transparent 31%
+    );
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.gift-box-bow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse at 25% 50%,
+      rgba(var(--gold-rgb), 0.35) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 75% 50%,
+      rgba(var(--gold-rgb), 0.35) 0%,
+      transparent 30%
+    );
+}
+
+.gift-card.accent-rose .gift-box-bow::after {
+  background: radial-gradient(
+      ellipse at 25% 50%,
+      rgba(var(--rose-rgb), 0.35) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 75% 50%,
+      rgba(var(--rose-rgb), 0.35) 0%,
+      transparent 30%
+    );
+}
+
+.gift-sparkle {
+  position: absolute;
+  font-size: 14px;
+  color: var(--gold);
+  opacity: 0;
+  animation: gift-sparkle 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.gift-card.accent-rose .gift-sparkle {
+  color: var(--rose);
+}
+
+.gift-sparkle-1 {
+  top: 4%;
+  right: 4%;
+  animation-delay: 0s;
+}
+.gift-sparkle-2 {
+  bottom: 18%;
+  left: 0;
+  animation-delay: 0.9s;
+  font-size: 18px;
+}
+.gift-sparkle-3 {
+  top: 38%;
+  right: 0;
+  animation-delay: 1.7s;
+  font-size: 12px;
+}
+
+@keyframes gift-sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* ─── CTA buttons ─────────────────────────────────────────────── */
+.gift-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  color: var(--white);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 24px rgba(var(--gold-rgb), 0.32);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.gift-card.accent-rose .gift-cta {
+  background: linear-gradient(135deg, var(--rose), var(--gold));
+  box-shadow: 0 10px 24px rgba(var(--rose-rgb), 0.32);
+}
+
+.gift-closed:hover .gift-cta {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(var(--gold-rgb), 0.4);
+}
+
+.gift-cta-icon {
+  display: inline-block;
+  animation: gift-twinkle 1.8s ease-in-out infinite;
+}
+
+@keyframes gift-twinkle {
+  0%, 100% {
+    transform: scale(1) rotate(0);
+  }
+  50% {
+    transform: scale(1.2) rotate(15deg);
+  }
+}
+
+.gift-close-btn {
+  margin-top: clamp(16px, 2vw, 22px);
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(var(--gold-rgb), 0.4);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition),
+    background var(--transition);
+}
+
+.gift-close-btn:hover {
+  color: var(--charcoal);
+  border-color: var(--gold);
+  background: rgba(var(--gold-rgb), 0.06);
+}
+
+.gift-card.accent-rose .gift-close-btn:hover {
+  border-color: var(--rose);
+  background: rgba(var(--rose-rgb), 0.06);
+}
+
+/* ─── QR frame (now inside flip back face) ───────────────────── */
+.gift-qr-frame {
+  position: relative;
+  padding: clamp(14px, 2vw, 20px);
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid rgba(var(--gold-rgb), 0.18);
+  box-shadow: inset 0 0 0 1px rgba(var(--cream-rgb), 0.6),
+    0 4px 16px rgba(44, 44, 44, 0.06);
+  margin-bottom: clamp(24px, 3vw, 32px);
+  width: min(260px, 100%);
+}
+
+.gift-qr-frame::before,
+.gift-qr-frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gold);
+  opacity: 0.55;
+}
+
+.gift-card.accent-rose .gift-qr-frame::before,
+.gift-card.accent-rose .gift-qr-frame::after {
+  border-color: var(--rose);
+}
+
+.gift-qr-frame::before {
+  top: -6px;
+  left: -6px;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 6px;
+}
+
+.gift-qr-frame::after {
+  bottom: -6px;
+  right: -6px;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 6px;
+}
+
+.gift-qr {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.gift-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gift-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(var(--gold-rgb), 0.22);
+  text-align: left;
+}
+
+.gift-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.gift-row dt {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.gift-row dd {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  font-weight: 500;
+  text-align: right;
+}
+
+.gift-row-account dd {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+}
+
+.gift-card.accent-gold .gift-row-account dd {
+  color: var(--gold);
+}
+
+.gift-card.accent-rose .gift-row-account dd {
+  color: var(--rose);
+}
+
+.gift-branch {
+  font-size: 0.85rem !important;
+  color: var(--text-muted) !important;
+  font-style: italic;
+  font-weight: 400 !important;
+}
+
+@media (max-width: 880px) {
+  .gift-spread {
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 4vw, 28px);
+  }
+
+  .gift-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .gift-row dd {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gift-box,
+  .gift-sparkle,
+  .gift-cta-icon,
+  .gift-closed,
+  .gift-opened {
+    animation: none !important;
+  }
+}
