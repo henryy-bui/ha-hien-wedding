@@ -1,3 +1,4 @@
+
 @keyframes spark-float {
   0%   { opacity: 0.85; transform: translate(0, 0) scale(1) rotate(0deg); }
   100% { opacity: 0;    transform: translate(var(--dx), var(--dy)) scale(0.35) rotate(var(--rot)); }

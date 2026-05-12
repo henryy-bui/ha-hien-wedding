@@ -1,40 +1,39 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
-import './OurStory.css'
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import "./OurStory.css";
 
 const MILESTONES = [
   {
-    year: '2020',
-    emoji: '💫',
-    title: 'Lần Đầu Gặp Gỡ',
-    desc: 'Một buổi chiều tình cờ, một nụ cười không thể quên. Chúng mình gặp nhau tại một sự kiện nhỏ và chẳng ai ngờ rằng khoảnh khắc đó lại thay đổi tất cả.',
+    year: "2020",
+    emoji: "💫",
+    title: "Lần đầu gặp gỡ",
+    desc: "Gặp nhau tại buổi họp Đội IT Supporter với ấn tượng đầu tiên là... chẳng ưa gì nhau. Nhưng định mệnh đã xoay chuyển vào buổi tối sinh nhật Đội, nơi những lời chào đầu tiên mở ra một hành trình tình yêu không ngờ tới",
   },
   {
-    year: '2021',
-    emoji: '🌊',
-    title: 'Chuyến Đi Đầu Tiên',
-    desc: 'Đà Nẵng — nơi chúng mình cùng ngắm hoàng hôn trên bờ biển và lần đầu biết rằng đây là điều gì đó thật sự đặc biệt.',
+    year: "2020",
+    emoji: "🌊",
+    title: "Mở lòng",
+    desc: "Từ hai kẻ 'ghét nhau' trong Đội, chỉ sau vài cuộc trò chuyện đêm sinh nhật, tụi mình đã tìm thấy 'tần số' chung và chọn đồng hành cùng nhau. Đó là một hành trình dài từ những ngày cùng nhau chạy deadline bài tập, cùng trải qua cảm giác hồi hộp ngày tốt nghiệp cho đến lúc mỗi đứa một định hướng riêng. Dù bận rộn với công việc nhưng tụi mình vẫn luôn là điểm tựa, cùng nhau trưởng thành và sẻ chia mọi áp lực đầu đời.",
   },
   {
-    year: '2025',
-    emoji: '💍',
-    title: 'Lời Cầu Hôn',
-    desc: 'Dưới ánh hoàng hôn rực rỡ, anh quỳ xuống với bông hoa và câu hỏi khiến tim em ngừng đập một nhịp. Em đã gật đầu, và thế giới chúng mình thay đổi mãi mãi.',
+    year: "2026",
+    emoji: "🎊",
+    title: "Lời hứa trọn đời",
+    desc: "6 năm bên nhau, từ những sinh viên ngây ngô đến khi trưởng thành với công việc riêng, chúng mình đã cùng nhau đi qua thật nhiều cột mốc. Và hôm nay, sau hơn 2000 ngày gắn bó, tụi mình hạnh phúc khi quyết định cùng nhau xây dựng một gia đình nhỏ, viết tiếp chương mới của cuộc đời bằng một đám cưới hạnh phúc vào 31/05/2026",
   },
-  {
-    year: '2026',
-    emoji: '🎊',
-    title: 'Ngày Trọng Đại',
-    desc: '31 tháng 05 năm 2026 — ngày chúng mình chính thức trở thành một gia đình. Và đây là lời mời trân trọng nhất dành cho những người yêu thương của chúng mình.',
-  },
-]
+];
 
 export default function OurStory() {
-  const sectionRef = useScrollReveal<HTMLElement>()
+  const sectionRef = useScrollReveal<HTMLElement>();
 
   return (
-    <section className="our-story-bg" ref={sectionRef} id="our-story" data-wipe="right">
+    <section
+      className="our-story-bg"
+      ref={sectionRef}
+      id="our-story"
+      data-wipe="right"
+    >
       <div className="section">
-        <div className="reveal" style={{ textAlign: 'center' }}>
+        <div className="reveal" style={{ textAlign: "center" }}>
           <span className="section-label">Câu Chuyện Của Chúng Mình</span>
           <h2 className="section-title">Hành Trình Tình Yêu</h2>
           <div className="section-divider" />
@@ -44,7 +43,9 @@ export default function OurStory() {
           {MILESTONES.map((m, i) => (
             <div
               key={m.year}
-              className={`timeline-item reveal reveal-delay-${i + 1} ${i % 2 === 0 ? 'tl-left reveal-left' : 'tl-right reveal-right'}`}
+              className={`timeline-item reveal reveal-delay-${i + 1} ${
+                i % 2 === 0 ? "tl-left reveal-left" : "tl-right reveal-right"
+              }`}
             >
               <div className="timeline-card">
                 <span className="tl-emoji">{m.emoji}</span>
@@ -58,5 +59,5 @@ export default function OurStory() {
         </div>
       </div>
     </section>
-  )
+  );
 }
