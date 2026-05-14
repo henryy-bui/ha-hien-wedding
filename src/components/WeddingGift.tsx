@@ -78,9 +78,9 @@ export default function WeddingGift() {
           <h2 className="section-title">Mừng Cưới</h2>
           <div className="section-divider" />
           <p className="gift-intro">
-            Sự hiện diện của bạn chính là món quà ý nghĩa nhất với tụi mình. Nếu
-            bạn muốn gửi thêm chút lộc đầu, hãy chạm vào hộp quà bên dưới để mở
-            mã QR.
+            Sự hiện diện cùng những lời chúc phúc của quý vị chính là niềm vinh
+            hạnh lớn lao trong ngày trọng đại của chúng tôi. Hộp quà phía dưới
+            xin kính phép được lưu lại như một dấu ấn đẹp của ngày vui.
           </p>
         </div>
 
