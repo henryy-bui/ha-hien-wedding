@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useWishes, type Wish } from "../hooks/useWishes";
+import { useSide } from "../sideContext";
 import "./WishesOverlay.css";
 
 const STORAGE_KEY = "wedding:wishes-overlay-collapsed";
@@ -21,12 +22,15 @@ const FILTER_MODES: FilterMode[] = ["combined", "groom", "bride"];
  */
 export default function WishesOverlay() {
   const { wishes, loading } = useWishes();
+  const side = useSide();
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(STORAGE_KEY) === "1";
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const [filter, setFilter] = useState<FilterMode>("combined");
+  const [filter, setFilter] = useState<FilterMode>(() =>
+    side === "groom" || side === "bride" ? side : "combined"
+  );
   const prevCountRef = useRef(wishes.length);
   const [pulseChip, setPulseChip] = useState(false);
 
@@ -90,7 +94,7 @@ export default function WishesOverlay() {
   }, [modalOpen]);
 
   if (loading) return null;
-  if (wishes.length === 0) return null;
+  if (filteredWishes.length === 0) return null;
 
   if (collapsed) {
     return (
@@ -98,13 +102,13 @@ export default function WishesOverlay() {
         type="button"
         className={`wishes-chip${pulseChip ? " wishes-chip--pulse" : ""}`}
         onClick={() => setCollapsed(false)}
-        aria-label={`Mở lời chúc — ${wishes.length} lời chúc`}
+        aria-label={`Mở lời chúc — ${filteredWishes.length} lời chúc`}
       >
         <span className="wishes-chip-icon" aria-hidden="true">
           💌
         </span>
         <span className="wishes-chip-label">Lời chúc</span>
-        <span className="wishes-chip-count">{wishes.length}</span>
+        <span className="wishes-chip-count">{filteredWishes.length}</span>
       </button>
     );
   }
@@ -178,7 +182,7 @@ export default function WishesOverlay() {
 
       {modalOpen && (
         <WishesModal
-          wishes={wishes}
+          wishes={filteredWishes}
           filter={filter}
           setFilter={setFilter}
           hasMixedSides={hasMixedSides}
