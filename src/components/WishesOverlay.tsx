@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useWishes, type Wish } from "../hooks/useWishes";
 import { useSide } from "../sideContext";
 import "./WishesOverlay.css";
+import { SIDE_CONFIG } from "../sideConfig";
 
 const STORAGE_KEY = "wedding:wishes-overlay-collapsed";
 
@@ -23,6 +24,7 @@ const FILTER_MODES: FilterMode[] = ["combined", "groom", "bride"];
 export default function WishesOverlay() {
   const { wishes, loading } = useWishes();
   const side = useSide();
+  const sideData = SIDE_CONFIG[side];
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(STORAGE_KEY) === "1";
@@ -154,7 +156,7 @@ export default function WishesOverlay() {
           )}
         </header>
 
-        {filteredWishes.length && (
+        {filteredWishes.length > 0 && (
           <div className="wishes-viewport">
             <div
               className={`wishes-track${animatedScroll ? " is-scrolling" : ""}`}
@@ -182,6 +184,7 @@ export default function WishesOverlay() {
 
       {modalOpen && (
         <WishesModal
+          sideData={sideData}
           wishes={filteredWishes}
           filter={filter}
           setFilter={setFilter}
@@ -267,12 +270,14 @@ function WishesModal({
   setFilter,
   hasMixedSides,
   onClose,
+  sideData,
 }: {
   wishes: Wish[];
   filter: FilterMode;
   setFilter: (m: FilterMode) => void;
   hasMixedSides: boolean;
   onClose: () => void;
+  sideData: (typeof SIDE_CONFIG)[keyof typeof SIDE_CONFIG];
 }) {
   const filtered = useMemo(() => {
     if (filter === "combined") return wishes;
@@ -296,7 +301,8 @@ function WishesModal({
           <div>
             <p className="wishes-modal-eyebrow">💌 Sổ Lưu Bút</p>
             <h3 id="wishes-modal-title" className="wishes-modal-title">
-              Lời Chúc Cho Hà &amp; Hiền
+              Lời Chúc Cho {sideData.groomBrideNames[0]} &amp;{" "}
+              {sideData.groomBrideNames[1]}
             </h3>
             <p className="wishes-modal-subtitle">
               {filtered.length} lời chúc thân thương
@@ -316,7 +322,7 @@ function WishesModal({
           <FilterPills filter={filter} setFilter={setFilter} size="md" />
         )}
 
-        {filtered.length && (
+        {filtered.length > 0 && (
           <ul className="wishes-modal-list">
             {filtered.map((w, i) => (
               <li

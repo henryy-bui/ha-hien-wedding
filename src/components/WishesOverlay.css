@@ -120,12 +120,16 @@
   display: grid;
   place-items: center;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.wishes-overlay-action:hover {
-  background: rgba(var(--gold-rgb), 0.14);
-  color: var(--charcoal);
-  border-color: rgba(var(--gold-rgb), 0.3);
+@media (hover: hover) {
+  .wishes-overlay-action:hover {
+    background: rgba(var(--gold-rgb), 0.14);
+    color: var(--charcoal);
+    border-color: rgba(var(--gold-rgb), 0.3);
+  }
 }
 
 .wishes-overlay-action:focus-visible {
@@ -155,6 +159,8 @@
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .wishes-filter-pill.is-active {
@@ -164,8 +170,10 @@
   font-weight: 500;
 }
 
-.wishes-filter-pill:hover:not(.is-active) {
-  color: var(--charcoal);
+@media (hover: hover) {
+  .wishes-filter-pill:hover:not(.is-active) {
+    color: var(--charcoal);
+  }
 }
 
 .wishes-filter-pill:focus-visible {
@@ -207,11 +215,6 @@
   animation-iteration-count: infinite;
 }
 
-.wishes-overlay:hover .wishes-track.is-scrolling,
-.wishes-track.is-scrolling:focus-within {
-  animation-play-state: paused;
-}
-
 @keyframes wishes-scroll {
   from {
     transform: translateY(0);
@@ -243,19 +246,20 @@
     border-color 0.25s ease;
 }
 
-.wish-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(var(--gold-rgb), 0.16);
-  border-color: rgba(var(--gold-rgb), 0.4);
-}
-
 .wish-card--bride {
   border-left-color: var(--rose);
 }
 
-.wish-card--bride:hover {
-  box-shadow: 0 8px 18px rgba(var(--rose-rgb), 0.2);
-  border-color: rgba(var(--rose-rgb), 0.4);
+@media (hover: hover) {
+  .wish-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(var(--gold-rgb), 0.16);
+    border-color: rgba(var(--gold-rgb), 0.4);
+  }
+  .wish-card--bride:hover {
+    box-shadow: 0 8px 18px rgba(var(--rose-rgb), 0.2);
+    border-color: rgba(var(--rose-rgb), 0.4);
+  }
 }
 
 .wish-card-button {
@@ -268,6 +272,8 @@
   cursor: pointer;
   font: inherit;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .wish-card-button:focus-visible {
@@ -347,12 +353,16 @@
   cursor: pointer;
   transition: transform var(--transition), box-shadow var(--transition),
     border-color var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.wishes-chip:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold);
-  box-shadow: var(--shadow-hover);
+@media (hover: hover) {
+  .wishes-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    box-shadow: var(--shadow-hover);
+  }
 }
 
 .wishes-chip:focus-visible {
@@ -506,13 +516,17 @@
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
     transform 0.2s ease;
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.wishes-modal-close:hover {
-  background: rgba(var(--gold-rgb), 0.12);
-  color: var(--charcoal);
-  border-color: var(--gold);
-  transform: rotate(90deg);
+@media (hover: hover) {
+  .wishes-modal-close:hover {
+    background: rgba(var(--gold-rgb), 0.12);
+    color: var(--charcoal);
+    border-color: var(--gold);
+    transform: rotate(90deg);
+  }
 }
 
 .wishes-modal-close:focus-visible {
@@ -542,27 +556,25 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  overflow-y: auto;
   flex: 1;
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.wishes-modal-list li {
-  height: 100px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .wish-card--modal {
   cursor: default;
 }
 
-.wish-card--modal:hover {
-  transform: none;
-  box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.12);
-}
-
-.wish-card--modal.wish-card--bride:hover {
-  box-shadow: 0 4px 14px rgba(var(--rose-rgb), 0.16);
+@media (hover: hover) {
+  .wish-card--modal:hover {
+    transform: none;
+    box-shadow: 0 4px 14px rgba(var(--gold-rgb), 0.12);
+  }
+  .wish-card--modal.wish-card--bride:hover {
+    box-shadow: 0 4px 14px rgba(var(--rose-rgb), 0.16);
+  }
 }
 
 .wish-card-modal-inner {
@@ -590,44 +602,144 @@
 /* ─── Mobile ────────────────────────────────────────────────── */
 @media (max-width: 540px) {
   .wishes-overlay {
-    bottom: 14px;
+    bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
     right: 14px;
     width: calc(100vw - 28px);
     max-width: 340px;
-    max-height: 60vh;
+    max-height: 50vh;
+    border-radius: 16px;
   }
-  .wishes-chip {
-    bottom: 14px;
-    right: 14px;
-    padding: 9px 14px;
+  .wishes-overlay-head {
+    padding: 12px 12px 10px;
+  }
+  .wishes-overlay-title {
+    font-size: 0.95rem;
+  }
+  /* Comfortable 40px tap targets on touch screens. */
+  .wishes-overlay-action {
+    width: 40px;
+    height: 40px;
+    font-size: 1.35rem;
+  }
+
+  .wishes-list {
+    padding: 8px 10px 10px;
+    gap: 8px;
+  }
+  .wish-card-button {
+    padding: 12px 14px;
+    min-height: 44px;
+  }
+  .wish-name {
+    font-size: 0.92rem;
   }
   .wish-note {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
+  .wishes-chip {
+    bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
+    right: 14px;
+    padding: 11px 16px;
+    min-height: 44px;
+  }
+
+  /* Modal becomes a bottom-sheet on phones */
   .wishes-modal-backdrop {
-    padding: 12px;
+    padding: 0;
     align-items: flex-end;
   }
   .wishes-modal {
-    max-height: 88vh;
     width: 100%;
+    max-height: 90vh;
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: wishes-modal-sheet 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes wishes-modal-sheet {
+    from {
+      opacity: 0.5;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .wishes-modal-head {
-    padding: 18px 18px 14px;
+    padding: 22px 18px 14px;
+  }
+  /* Drag-handle hint */
+  .wishes-modal-head::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(var(--gold-rgb), 0.32);
+  }
+  .wishes-modal-title {
+    font-size: 1.25rem;
+  }
+  .wishes-modal-close {
+    width: 44px;
+    height: 44px;
   }
   .wishes-modal-list {
-    padding: 14px 18px 20px;
+    padding: 14px 16px 20px;
+    max-height: none;
+    gap: 10px;
   }
   .wishes-filter-row--md {
-    margin: 12px 18px 0;
-    width: calc(100% - 36px);
+    margin: 12px 16px 0;
+    width: calc(100% - 32px);
   }
   .wishes-filter-row--md .wishes-filter-pill {
     flex: 1;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+  .wish-card-modal-inner {
+    padding: 13px 14px;
+  }
+  .wish-note--full {
+    font-size: 0.88rem;
+  }
+}
+
+/* ─── Tiny phones (≤ 380px) ─────────────────────────────────── */
+@media (max-width: 380px) {
+  .wishes-overlay {
+    max-height: 48vh;
+  }
+  .wishes-overlay-head {
+    padding: 10px 10px 8px;
+  }
+  .wishes-overlay-title {
+    font-size: 0.88rem;
+    gap: 6px;
+  }
+  .wishes-overlay-count {
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.68rem;
+  }
+  .wishes-chip {
+    padding: 8px 12px;
+  }
+  .wishes-chip-label {
+    font-size: 0.88rem;
   }
   .wishes-modal-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 }
 
