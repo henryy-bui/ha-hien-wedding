@@ -18,7 +18,7 @@ const PHOTOS: LightboxPhoto[] = [
     aspectRatio: "2 / 3",
   },
   {
-    bg: "/images/optimized/akkha02464.jpg",
+    bg: "/images/optimized/akkha02465.jpg",
     label: "Khoảnh khắc 3",
     aspectRatio: "2 / 3",
   },
