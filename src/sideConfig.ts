@@ -5,6 +5,7 @@ export interface VenueData {
   address: string;
   coords: string;
   details: string[];
+  oldAddress?: string;
 }
 
 export interface EventData {
@@ -50,7 +51,7 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
     ],
     venue: {
       name: "Tư gia Nhà Trai",
-      address: "Xóm Chẽ, Trường Sơn, Lục Nam, Bắc Ninh (Bắc Giang cũ)",
+      address: "Xóm Chẽ, Trường Sơn, Bắc Ninh (Bắc Giang cũ)",
       coords: "21.2409791,106.5760376",
       details: [],
     },
@@ -76,7 +77,8 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
     ],
     venue: {
       name: "Tư gia Nhà Gái",
-      address: "Thị Trấn Hưng Nhân, Hưng Hà, Hưng Yên (Thái Bình cũ)",
+      address: "TDP Thị An, Tiền Phong, xã Long Hưng, tỉnh Hưng Yên",
+      oldAddress: "Thị trấn Hưng Nhân, Thái Bình cũ",
       coords: "20.61588, 106.1453",
       details: [],
     },

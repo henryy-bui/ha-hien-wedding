@@ -57,6 +57,11 @@ export default function Location() {
             <h3 className="location-name">{VENUE.name}</h3>
             <div className="location-rule" />
             <p className="location-address">{VENUE.address}</p>
+            {VENUE.oldAddress && (
+              <p className="location-address location-address--old">
+                ({VENUE.oldAddress})
+              </p>
+            )}
             {VENUE.details
               .filter((d) => d.trim())
               .map((d) => (
