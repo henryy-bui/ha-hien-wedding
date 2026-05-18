@@ -1,20 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useWishes, type Wish } from "../hooks/useWishes";
 import { useSide } from "../sideContext";
 import "./WishesOverlay.css";
 import { SIDE_CONFIG } from "../sideConfig";
 
 const STORAGE_KEY = "wedding:wishes-overlay-collapsed";
-
-type FilterMode = "combined" | "groom" | "bride";
-
-const FILTER_LABELS: Record<FilterMode, string> = {
-  combined: "Tất cả",
-  groom: "Nhà trai",
-  bride: "Nhà gái",
-};
-
-const FILTER_MODES: FilterMode[] = ["combined", "groom", "bride"];
 
 /**
  * Floating live-wishes feed pinned bottom-right. Three states:
@@ -30,19 +20,16 @@ export default function WishesOverlay() {
     return window.localStorage.getItem(STORAGE_KEY) === "1";
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const [filter, setFilter] = useState<FilterMode>(() =>
-    side === "groom" || side === "bride" ? side : "combined"
-  );
   const prevCountRef = useRef(wishes.length);
   const [pulseChip, setPulseChip] = useState(false);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, collapsed ? "1" : "0");
-    } catch {
-      /* persistence is best-effort */
-    }
-  }, [collapsed]);
+  useLayoutEffect(() => {
+    if (collapsed) return;
+    if (wishes.length === 0) return;
+    const container = document.querySelector(".wishes-viewport");
+    if (!container) return;
+    container.scrollTop = container.scrollHeight;
+  }, [wishes.length, collapsed]);
 
   // Pulse chip when a new wish arrives while collapsed.
   useEffect(() => {
@@ -56,20 +43,8 @@ export default function WishesOverlay() {
   }, [wishes.length, collapsed]);
 
   const filteredWishes = useMemo(() => {
-    if (filter === "combined") return wishes;
-    return wishes.filter((w) => w.side === filter);
-  }, [filter, wishes]);
-
-  const hasMixedSides = useMemo(() => {
-    let groom = false;
-    let bride = false;
-    for (const w of wishes) {
-      if (w.side === "groom") groom = true;
-      else if (w.side === "bride") bride = true;
-      if (groom && bride) return true;
-    }
-    return false;
-  }, [wishes]);
+    return wishes.filter((w) => w.side === side);
+  }, [side, wishes]);
 
   // Only auto-scroll when there are enough cards that they'd overflow.
   const animatedScroll = filteredWishes.length >= 4;
@@ -151,9 +126,6 @@ export default function WishesOverlay() {
               </button>
             </div>
           </div>
-          {hasMixedSides && (
-            <FilterPills filter={filter} setFilter={setFilter} size="sm" />
-          )}
         </header>
 
         {filteredWishes.length > 0 && (
@@ -186,46 +158,10 @@ export default function WishesOverlay() {
         <WishesModal
           sideData={sideData}
           wishes={filteredWishes}
-          filter={filter}
-          setFilter={setFilter}
-          hasMixedSides={hasMixedSides}
           onClose={() => setModalOpen(false)}
         />
       )}
     </>
-  );
-}
-
-function FilterPills({
-  filter,
-  setFilter,
-  size,
-}: {
-  filter: FilterMode;
-  setFilter: (m: FilterMode) => void;
-  size: "sm" | "md";
-}) {
-  return (
-    <div
-      className={`wishes-filter-row${
-        size === "md" ? " wishes-filter-row--md" : ""
-      }`}
-      role="tablist"
-      aria-label="Lọc lời chúc theo bên"
-    >
-      {FILTER_MODES.map((m) => (
-        <button
-          key={m}
-          type="button"
-          role="tab"
-          aria-selected={filter === m}
-          className={`wishes-filter-pill${filter === m ? " is-active" : ""}`}
-          onClick={() => setFilter(m)}
-        >
-          {FILTER_LABELS[m]}
-        </button>
-      ))}
-    </div>
   );
 }
 
@@ -266,24 +202,13 @@ function WishList({
 
 function WishesModal({
   wishes,
-  filter,
-  setFilter,
-  hasMixedSides,
   onClose,
   sideData,
 }: {
   wishes: Wish[];
-  filter: FilterMode;
-  setFilter: (m: FilterMode) => void;
-  hasMixedSides: boolean;
   onClose: () => void;
   sideData: (typeof SIDE_CONFIG)[keyof typeof SIDE_CONFIG];
 }) {
-  const filtered = useMemo(() => {
-    if (filter === "combined") return wishes;
-    return wishes.filter((w) => w.side === filter);
-  }, [filter, wishes]);
-
   return (
     <div
       className="wishes-modal-backdrop"
@@ -305,7 +230,7 @@ function WishesModal({
               {sideData.groomBrideNames[1]}
             </h3>
             <p className="wishes-modal-subtitle">
-              {filtered.length} lời chúc thân thương
+              {wishes.length} lời chúc thân thương
             </p>
           </div>
           <button
@@ -318,13 +243,9 @@ function WishesModal({
           </button>
         </header>
 
-        {hasMixedSides && (
-          <FilterPills filter={filter} setFilter={setFilter} size="md" />
-        )}
-
-        {filtered.length > 0 && (
+        {wishes.length > 0 && (
           <ul className="wishes-modal-list">
-            {filtered.map((w, i) => (
+            {wishes.map((w, i) => (
               <li
                 key={`${w.name}-${w.timestamp}-${i}`}
                 className={`wish-card wish-card--modal wish-card--${
