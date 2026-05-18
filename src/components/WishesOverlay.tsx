@@ -42,8 +42,7 @@ export default function WishesOverlay() {
     }
   }, [wishes.length, collapsed]);
 
-  // Only auto-scroll when there are enough cards that they'd overflow.
-  const animatedScroll = wishes.length >= 4;
+  const animatedScroll = true;
 
   // Animation duration scales with item count — ~5 s per item, clamped.
   const durationSec = useMemo(() => {
