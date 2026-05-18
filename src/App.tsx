@@ -18,6 +18,7 @@ import WeddingGift from "./components/WeddingGift";
 import Footer from "./components/Footer";
 import "./App.css";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -34,18 +35,21 @@ function App() {
           <WishesOverlay />
           <ScrollProgress />
           <NavDots />
-          <Hero />
-          <Introduction />
-          <OurStory />
-          <WeddingDetails />
-          <Location />
-          <Gallery />
-          <RSVP />
-          <WeddingGift />
-          <Footer />
+          <main>
+            <Hero />
+            <Introduction />
+            <OurStory />
+            <WeddingDetails />
+            <Location />
+            <Gallery />
+            <RSVP />
+            <WeddingGift />
+            <Footer />
+          </main>
+          <Analytics />
+          <SpeedInsights />
         </>
       )}
-      <Analytics />
     </SideProvider>
   );
 }
