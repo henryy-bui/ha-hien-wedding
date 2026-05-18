@@ -42,18 +42,14 @@ export default function WishesOverlay() {
     }
   }, [wishes.length, collapsed]);
 
-  const filteredWishes = useMemo(() => {
-    return wishes.filter((w) => w.side === side);
-  }, [side, wishes]);
-
   // Only auto-scroll when there are enough cards that they'd overflow.
-  const animatedScroll = filteredWishes.length >= 4;
+  const animatedScroll = wishes.length >= 4;
 
   // Animation duration scales with item count — ~5 s per item, clamped.
   const durationSec = useMemo(() => {
-    const ideal = filteredWishes.length * 5;
+    const ideal = wishes.length * 5;
     return Math.max(20, Math.min(ideal, 120));
-  }, [filteredWishes.length]);
+  }, [wishes.length]);
 
   // Lock body scroll + Esc-to-close while modal is open.
   useEffect(() => {
@@ -71,7 +67,7 @@ export default function WishesOverlay() {
   }, [modalOpen]);
 
   if (loading) return null;
-  if (filteredWishes.length === 0) return null;
+  if (wishes.length === 0) return null;
 
   if (collapsed) {
     return (
@@ -79,13 +75,13 @@ export default function WishesOverlay() {
         type="button"
         className={`wishes-chip${pulseChip ? " wishes-chip--pulse" : ""}`}
         onClick={() => setCollapsed(false)}
-        aria-label={`Mở lời chúc — ${filteredWishes.length} lời chúc`}
+        aria-label={`Mở lời chúc — ${wishes.length} lời chúc`}
       >
         <span className="wishes-chip-icon" aria-hidden="true">
           💌
         </span>
         <span className="wishes-chip-label">Lời chúc</span>
-        <span className="wishes-chip-count">{filteredWishes.length}</span>
+        <span className="wishes-chip-count">{wishes.length}</span>
       </button>
     );
   }
@@ -102,7 +98,7 @@ export default function WishesOverlay() {
               <span className="wishes-live-dot" aria-hidden="true" />
               Lời Chúc
               <span className="wishes-overlay-count" aria-live="polite">
-                {filteredWishes.length}
+                {wishes.length}
               </span>
             </span>
             <div className="wishes-overlay-actions">
@@ -128,7 +124,7 @@ export default function WishesOverlay() {
           </div>
         </header>
 
-        {filteredWishes.length > 0 && (
+        {wishes.length > 0 && (
           <div className="wishes-viewport">
             <div
               className={`wishes-track${animatedScroll ? " is-scrolling" : ""}`}
@@ -138,13 +134,10 @@ export default function WishesOverlay() {
                   : undefined
               }
             >
-              <WishList
-                wishes={filteredWishes}
-                onSelect={() => setModalOpen(true)}
-              />
+              <WishList wishes={wishes} onSelect={() => setModalOpen(true)} />
               {animatedScroll && (
                 <WishList
-                  wishes={filteredWishes}
+                  wishes={wishes}
                   onSelect={() => setModalOpen(true)}
                   ariaHidden
                 />
@@ -157,7 +150,7 @@ export default function WishesOverlay() {
       {modalOpen && (
         <WishesModal
           sideData={sideData}
-          wishes={filteredWishes}
+          wishes={wishes}
           onClose={() => setModalOpen(false)}
         />
       )}
