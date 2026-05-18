@@ -51,7 +51,8 @@ export const SIDE_CONFIG: Record<Side, SideData> = {
     ],
     venue: {
       name: "Tư gia Nhà Trai",
-      address: "Xóm Chẽ, Trường Sơn, Bắc Ninh (Bắc Giang cũ)",
+      address: "Trường THCS Trường Sơn, Trường Sơn, Bắc Ninh",
+      oldAddress: "Bắc Giang cũ",
       coords: "21.2409791,106.5760376",
       details: [],
     },
