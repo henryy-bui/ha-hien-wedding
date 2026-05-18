@@ -126,7 +126,7 @@ export default function WishesOverlay() {
         {wishes.length > 0 && (
           <div className="wishes-viewport">
             <div
-              className={`wishes-track${animatedScroll ? " is-scrolling" : ""}`}
+              className={`wishes-track is-scrolling`}
               style={
                 animatedScroll
                   ? { animationDuration: `${durationSec}s` }

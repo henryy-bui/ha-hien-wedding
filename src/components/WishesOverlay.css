@@ -6,6 +6,7 @@
   z-index: 55;
   width: 320px;
   max-height: 350px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   background: var(--white-glass);
@@ -183,7 +184,8 @@
 
 /* ─── Scrolling viewport ────────────────────────────────────── */
 .wishes-viewport {
-  position: relative;
+  position: absolute;
+  top: 65px;
   flex: 1;
   overflow: hidden;
   padding: 8px 0;
@@ -604,7 +606,7 @@
   .wishes-overlay {
     bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
     right: 14px;
-    width: calc(100vw - 28px);
+    width: calc(100vw-40px);
     max-width: 340px;
     max-height: 50vh;
     border-radius: 16px;
