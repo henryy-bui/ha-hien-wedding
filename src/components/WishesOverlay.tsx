@@ -182,7 +182,7 @@ function WishList({
           >
             <div className="wish-meta">
               <span className="wish-name">{w.name}</span>
-              <span className="wish-time">{formatRelative(w.timestamp)}</span>
+              {/* <span className="wish-time">{formatRelative(w.timestamp)}</span> */}
             </div>
             <p className="wish-note">{w.note}</p>
           </button>
@@ -247,9 +247,9 @@ function WishesModal({
                 <div className="wish-card-modal-inner">
                   <div className="wish-meta">
                     <span className="wish-name">{w.name}</span>
-                    <span className="wish-time">
+                    {/* <span className="wish-time">
                       {formatRelative(w.timestamp)}
-                    </span>
+                    </span> */}
                   </div>
                   <p className="wish-note wish-note--full">{w.note}</p>
                 </div>
@@ -293,6 +293,6 @@ function formatRelative(iso: string): string {
   if (diffDay < 7) return `${diffDay} ngày trước`;
   const d = new Date(ts);
   return `${String(d.getDate()).padStart(2, "0")}/${String(
-    d.getMonth() + 1
+    d.getMonth() + 1,
   ).padStart(2, "0")}`;
 }
