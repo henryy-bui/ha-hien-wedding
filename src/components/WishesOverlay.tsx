@@ -280,19 +280,19 @@ function ExpandIcon() {
 }
 
 /** Vietnamese relative-time formatter: "vừa xong" / "X phút trước" / "X giờ trước" / "X ngày trước" / "DD/MM". */
-function formatRelative(iso: string): string {
-  const ts = new Date(iso).getTime();
-  if (Number.isNaN(ts)) return "";
-  const diffMs = Date.now() - ts;
-  if (diffMs < 60_000) return "vừa xong";
-  const diffMin = Math.floor(diffMs / 60_000);
-  if (diffMin < 60) return `${diffMin} phút trước`;
-  const diffHr = Math.floor(diffMin / 60);
-  if (diffHr < 24) return `${diffHr} giờ trước`;
-  const diffDay = Math.floor(diffHr / 24);
-  if (diffDay < 7) return `${diffDay} ngày trước`;
-  const d = new Date(ts);
-  return `${String(d.getDate()).padStart(2, "0")}/${String(
-    d.getMonth() + 1,
-  ).padStart(2, "0")}`;
-}
+// function formatRelative(iso: string): string {
+//   const ts = new Date(iso).getTime();
+//   if (Number.isNaN(ts)) return "";
+//   const diffMs = Date.now() - ts;
+//   if (diffMs < 60_000) return "vừa xong";
+//   const diffMin = Math.floor(diffMs / 60_000);
+//   if (diffMin < 60) return `${diffMin} phút trước`;
+//   const diffHr = Math.floor(diffMin / 60);
+//   if (diffHr < 24) return `${diffHr} giờ trước`;
+//   const diffDay = Math.floor(diffHr / 24);
+//   if (diffDay < 7) return `${diffDay} ngày trước`;
+//   const d = new Date(ts);
+//   return `${String(d.getDate()).padStart(2, "0")}/${String(
+//     d.getMonth() + 1,
+//   ).padStart(2, "0")}`;
+// }
